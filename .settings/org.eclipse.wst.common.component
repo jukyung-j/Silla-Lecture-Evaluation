@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
+    <wb-module deploy-name="SillaLectureEvaluation">
+                
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+                
+        <property name="java-output-path" value="/SillaLectureEvaluation/build/classes"/>
+        <property name="context-root" value="/sillauv/lecture-evaluation"/>
+            
+    </wb-module>
+    
+</project-modules>
