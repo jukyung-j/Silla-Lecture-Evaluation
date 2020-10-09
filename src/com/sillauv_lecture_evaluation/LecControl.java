@@ -3,12 +3,14 @@ package com.sillauv_lecture_evaluation;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /**
  * Servlet implementation class LecControl
@@ -35,6 +37,15 @@ public class LecControl extends HttpServlet {
 		String pathInfo = request.getPathInfo();
 		String action = request.getParameter("action");
 		String viewName = null;
+		SILLADAO dao = (SILLADAO)session.getAttribute("dao");
+
+		if(dao == null) {
+			ServletContext context = getServletContext();
+			dao = new SillaDBCPDAO(
+					context.getInitParameter("dbcp_resource_name")
+			);
+			session.setAttribute("dao", dao);
+		}
 		
 		// step #2. data processing
 		// get routing info.
