@@ -19,11 +19,11 @@
   </context-param>
   <context-param>
   	<param-name>db_userid</param-name>
-  	<param-value>*****</param-value>
+  	<param-value>SILLA</param-value>
   </context-param>
   <context-param>
   	<param-name>db_passwd</param-name>
-  	<param-value>******</param-value>
+  	<param-value>sillalec</param-value>
   </context-param>
   <context-param>
   	<param-name>dbcp_resource_name</param-name>
