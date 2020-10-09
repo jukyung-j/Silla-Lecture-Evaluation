@@ -40,10 +40,12 @@ public class LecControl extends HttpServlet {
 		// get routing info.
 		
 		if(pathInfo != null && pathInfo.length() > 1) {
-			System.out.println(pathInfo);
 			if(pathInfo.equals("/index")) {
 				viewName = "/view/index.html";
 			}
+		}
+		else  {
+			viewName="/view/index.html";
 		}
 		if(action != null){
 			
