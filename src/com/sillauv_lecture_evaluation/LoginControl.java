@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class LecControl
  */
-@WebServlet("/sillauv/lecture-evaluation/*")
+@WebServlet("/lecture-evaluation/*")
 public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +40,7 @@ public class LoginControl extends HttpServlet {
 		String viewName = null;
 		MemberDO member = new MemberDO(); 
 		SILLADAO dao = (SILLADAO)session.getAttribute("dao");
+		
 
 		if(dao == null) {
 			ServletContext context = getServletContext();
@@ -57,40 +58,35 @@ public class LoginControl extends HttpServlet {
 				viewName = "/view/index.jsp";
 			}
 		}
-		else  {
-			viewName="/view/index.jsp";
-		}
+
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 화면
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
-				boolean message = true;
-				request.setAttribute("message", message);
-				
+				boolean message = true;	// 로그인 메세지
+	
 				try {
 					member = dao.Login(id);
 					if(member != null) {
 						if(member.getPwd().equals(pwd)) {	// 로그인 성공
 							message = true;
 							request.setAttribute("message", message);
-							viewName="/sillauv/lecture-evaluation/index";
 						}
 						else {		// 비밀번호 잘못 입력
 							message = false;
 							request.setAttribute("message", message);
-							viewName="redirect:/sillauv/lecture-evaluation/index";
+							
 						}
 					}
 					else {			// 아이디 잘못 입력
 						message = false;
 						request.setAttribute("message", message);
-						viewName="redirect:/sillauv/lecture-evaluation/index";
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				viewName="/view/index.jsp";
 			}
 		}
 		if(viewName != null) {
@@ -99,6 +95,7 @@ public class LoginControl extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+location);
 			}
 			else{
+				
 				RequestDispatcher view = request.getRequestDispatcher(viewName);
 				view.forward(request, response);
 			}

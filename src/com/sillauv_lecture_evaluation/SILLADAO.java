@@ -24,7 +24,7 @@ public abstract class SILLADAO {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select * from member where id=?";
+				String sql = "select id,pwd,nickname,dept from member where id=?";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, id);
 				rs = stmt.executeQuery();
@@ -33,6 +33,8 @@ public abstract class SILLADAO {
 					member = new MemberDO();
 					member.setId(rs.getString("id"));
 					member.setPwd(rs.getString("pwd"));
+					member.setNickname(rs.getString("nickname"));
+					member.setDept(rs.getString("dept"));
 				}
 			}catch(SQLException e) {
 				throw e;

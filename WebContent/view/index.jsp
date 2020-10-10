@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,13 +21,13 @@
 	</style>
 </head>
 <body align="center">
-<c:if test="${message == false }" >
+<c:if test="${message==false}" >
 	<script>
-		alert("아이디나 비밀번호를 다시 입력해주세요");
+		alert("아이디나 비밀번호를 다시 입력해주세요.");
 	</script>
-</c:if>
+</c:if> 
 	<h1>로그인 페이지</h1><hr>
-	<form action='${pageContext.request.contextPath}/sillauv/lecture-evaluation?action=login' method="POST">
+	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
 		<table align="center">
 			<tr>
 				<td>아이디:</td><td><input type="text" name="id" /></td>
