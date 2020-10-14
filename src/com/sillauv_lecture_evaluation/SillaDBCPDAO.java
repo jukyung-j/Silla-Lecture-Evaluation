@@ -6,7 +6,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class SillaDBCPDAO extends SILLADAO {
+public class SillaDBCPDAO extends SillaDao {
 	private String dbcpResourceName;  
 		
 		public SillaDBCPDAO(String dbcpResourceName) {

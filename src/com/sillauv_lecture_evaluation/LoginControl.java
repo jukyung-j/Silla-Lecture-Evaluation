@@ -39,8 +39,8 @@ public class LoginControl extends HttpServlet {
 		String action = request.getParameter("action");
 		String viewName = null;
 		MemberDO member = new MemberDO(); 
-		SILLADAO dao = (SILLADAO)session.getAttribute("dao");
-		
+		SillaDao dao = (SillaDao)session.getAttribute("dao");
+		boolean message = true;		// 알림 창
 
 		if(dao == null) {
 			ServletContext context = getServletContext();
@@ -57,13 +57,18 @@ public class LoginControl extends HttpServlet {
 			if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
 			}
+			else if(pathInfo.equals("/join_form")) {
+				viewName="/view/join_form.jsp";
+			}
 		}
+		else
+			viewName="/view/index.jsp";
 
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 화면
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
-				boolean message = true;	// 로그인 메세지
+				message = true;	// 로그인 메세지
 	
 				try {
 					member = dao.Login(id);
@@ -88,6 +93,7 @@ public class LoginControl extends HttpServlet {
 				}
 				viewName="/view/index.jsp";
 			}
+			
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {
