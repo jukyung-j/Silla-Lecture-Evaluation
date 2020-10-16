@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class SILLADAO {
+
+
+public abstract class SillaDao {
 	protected Connection con = null;
 		
 		protected abstract void connectDB() throws SQLException;
@@ -45,6 +47,60 @@ public abstract class SILLADAO {
 			}
 			return member;
 		}
+		public boolean ConfirmId(String id) throws SQLException{
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			boolean result = false;
+			try {						
+				String sql="select id from member where id=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, id);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					result = true;		// 아이디 중복
+				}
+				
+			}catch(SQLException e) {
+				throw e;
+			} finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();  
+				disconnectDB();
+			}
+			return result;
+		}
+//		public boolean ConfirmNick() throws SQLExcpetion{
+//			
+//		}
+		public int Join(MemberDO member) throws SQLException {
+			connectDB();
+			
+			int result = 0;
+			PreparedStatement stmt = null;
+			try {	
+				
+				String sql= "insert into member(id, pwd, name, nickname, dept, email) values (?,?,?,?,?,?)";
+				stmt = con.prepareStatement(sql);
+				
+				stmt.setString(1, member.getId());
+				stmt.setString(2, member.getPwd());
+				stmt.setString(3, member.getName());
+				stmt.setString(4, member.getName());
+				stmt.setString(5, member.getDept());
+				stmt.setString(6, member.getEmail());
+				
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
+		} 
 	
 
 }

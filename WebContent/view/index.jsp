@@ -38,7 +38,8 @@
 			<tr>
 				<td><br><input type="checkbox" name="자동로그인" value="auto-login">자동로그인</td>
 				<td><br><input type="submit" value="로그인" /></td>
-				<td><br><input type="button" value="회원가입 " onclick="location.href='join_form'"/></td>
+				<td><br><input type="button" value="회원가입 " onclick=
+					"location.href='${pageContext.request.contextPath}/lecture-evaluation/join_form'"/></td>
 			</tr>
 		</table>
 	</form>
