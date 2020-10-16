@@ -93,7 +93,17 @@ public class LoginControl extends HttpServlet {
 				}
 				viewName="/view/index.jsp";
 			}
-			
+			else if(action.equals("checkid")) {		// 아이디 중복 검사
+				String id = request.getParameter("user_id");
+				System.out.println("ds");
+				try {
+					message = dao.ConfirmId(id);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {
