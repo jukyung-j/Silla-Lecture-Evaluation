@@ -36,7 +36,6 @@
 				<td><br>비밀번호:</td><td><br><input type="password" name="pwd" /></td>
 			</tr>
 			<tr>
-				<td><br><input type="checkbox" name="자동로그인" value="auto-login">자동로그인</td>
 				<td><br><input type="submit" value="로그인" /></td>
 				<td><br><input type="button" value="회원가입 " onclick=
 					"location.href='${pageContext.request.contextPath}/lecture-evaluation/join_form'"/></td>

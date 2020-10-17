@@ -1,54 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>È¸¿ø°¡ÀÔ</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#user_id").blur(function(){
-		var user_id = $('#user_id').val();
-		$.ajax({
-			url : '${pageContext.request.contextPath}/lecture-evaluation?action=checkid&userid='+user_id,
-			type : 'get',
-			success : function(data){
-				console.log("1=Áßº¹/0=Áßº¹x"+data);
-			}
-		});
-	});
-}); 
-
-	
-</script>
-
-	 	
-	  
-
+<title>íšŒì›ê°€ì…</title>
 </head>
 
-
 <body>
-	<h1>È¸¿ø°¡ÀÔ</h1>
+	<h1>íšŒì›ê°€ì…</h1>
 	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=join' method="POST" >
-		ÀÌ¸§<input type="text" name="name" required><br>
-		´Ğ³×ÀÓ<input type="text" name="nickname" required><br>
-		<div class="form-group">
-			<label for="user_id"> ¾ÆÀÌµğ</label>
-				<input type="text" class="form-control" name="user_id" id="user_id"  required>
-		<div class="check_font" id="id_check"></div>
-		</div>
-		ºñ¹Ğ¹øÈ£<input type="password" name="pwd" required><br>
-		ºñ¹Ğ¹øÈ£ È®ÀÎ<input type="password" name="checkpwd" required><br>
-		ÇĞ°ú<select name="dept" id="dept">
+		ì´ë¦„<input type="text" name="name" required><br>
+		<label for="user_nick">ë‹‰ë„¤ì„</label>
+			<input type="text" name="nickname" id="user_nick" required><br>
+			<div id="nick_check"></div>
+		<label for="user_id"> ì•„ì´ë””</label>
+			<input type="text" class="form-control" name="user_id" id="user_id"  required>
+			<div class="check_font" id="id_check"></div>
+		<label for="user_pw">ë¹„ë°€ë²ˆí˜¸</label>
+			<input type="password" name="pwd" id="user_pw" required><br>
+			<div id="pw_check"></div>
+		<label for="user_pw2">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</label>
+			<input type="password" id="user_pw2" required><br>
+			<div id="pw2_check"></div>
+		í•™ê³¼<select name="dept" id="dept">
 			<option value=""></option>
-			<option value="ÄÄÇ»ÅÍ¼ÒÇÁÆ®¿ş¾î°øÇĞºÎ">ÄÄÇ»ÅÍ¼ÒÇÁÆ®¿ş¾î°øÇĞºÎ</option>
+			<option value="ì»´í“¨í„°ì†Œí”„íŠ¸ì›¨ì–´ê³µí•™ë¶€">ì»´í“¨í„°ì†Œí”„íŠ¸ì›¨ì–´ê³µí•™ë¶€</option>
 		</select><br>
-		ÀÌ¸ŞÀÏ<input type="text" name="email" required><br>
-		<input type="submit" value="È¸¿ø°¡ÀÔ" id="reg_submit" /><br>
+		<label for="user_email">ì´ë©”ì¼</label>
+			<input type="text" name="email" id="user_email" value="@sillain.ac.kr" required /> 
+			<input type="button" value="ì¸ì¦ë²ˆí˜¸ ì „ì†¡" id="check_mail" /><br>
+			<input type="text" name="verifi" id="e_code" ><input type="button" value="í™•ì¸" id="code_btn"><br>
+			<div id="code_check"></div>
+		<input type="submit" value="íšŒì›ê°€ì…" id="reg_submit" /><br>
 	</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	var idJ = /^[a-z0-9]{4,12}$/;	// ì•„ì´ë”” ì •ê·œì‹
+	var nickJ = /^[ã„±-ã…|ê°€-í£|a-z|A-Z|0-9|\*]+$/; 	// ë‹‰ë„¤ì„ ì •ê·œì‹
+	var pwJ = /^.*(?=.{6,12})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;		// ë¹„ë°€ë²ˆí˜¸ ì •ê·œì‹
+	var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@sillain.ac.kr$/i;		// ì´ë©”ì¼ ì •ê·œì‹
 	
+</script> 
+<script src="${pageContext.request.contextPath}/js/JoinScript.js"> </script>
 </body>
 </html>

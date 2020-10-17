@@ -47,12 +47,12 @@ public abstract class SillaDao {
 			}
 			return member;
 		}
-		public boolean ConfirmId(String id) throws SQLException{
+		public int ConfirmId(String id) throws SQLException{
 			connectDB();
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
-			boolean result = false;
+			int result = 0;
 			try {						
 				String sql="select id from member where id=?";
 				stmt = con.prepareStatement(sql);
@@ -60,7 +60,8 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					result = true;		// ���̵� �ߺ�
+					result = 1;		// 아이디 중복
+
 				}
 				
 			}catch(SQLException e) {
@@ -72,9 +73,31 @@ public abstract class SillaDao {
 			}
 			return result;
 		}
-//		public boolean ConfirmNick() throws SQLExcpetion{
-//			
-//		}
+		public int ConfirmNick(String nick) throws SQLException{
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			int result = 0;
+			try {						
+				String sql="select nickname from member where nickname=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, nick);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					result = 1;		// 아이디 중복
+				}
+				
+			}catch(SQLException e) {
+				throw e;
+			} finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();  
+				disconnectDB();
+			}
+			return result;
+		}
 		public int Join(MemberDO member) throws SQLException {
 			connectDB();
 			

@@ -40,7 +40,7 @@ public class LoginControl extends HttpServlet {
 		String viewName = null;
 		MemberDO member = new MemberDO(); 
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
-		boolean message = true;		// ¾Ë¸² Ã¢
+		boolean message = true;		// ï¿½Ë¸ï¿½ Ã¢
 
 		if(dao == null) {
 			ServletContext context = getServletContext();
@@ -65,25 +65,25 @@ public class LoginControl extends HttpServlet {
 			viewName="/view/index.jsp";
 
 		if(action != null){
-			if(action.equals("login")) {		// ·Î±×ÀÎ È­¸é
+			if(action.equals("login")) {		// ë¡œê·¸ì¸ í™•ì¸
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
-				message = true;	// ·Î±×ÀÎ ¸Ş¼¼Áö
+				message = true;	// ì˜ëª»ëœ ë¡œê·¸ì¸ í™•ì¸
 	
 				try {
 					member = dao.Login(id);
 					if(member != null) {
-						if(member.getPwd().equals(pwd)) {	// ·Î±×ÀÎ ¼º°ø
+						if(member.getPwd().equals(pwd)) {	// ë¡œê·¸ì¸ ì„±ê³µ
 							message = true;
 							request.setAttribute("message", message);
 						}
-						else {		// ºñ¹Ğ¹øÈ£ Àß¸ø ÀÔ·Â
+						else {		// ë¹„ë°€ë²ˆí˜¸ ì‹¤íŒ¨
 							message = false;
 							request.setAttribute("message", message);
 							
 						}
 					}
-					else {			// ¾ÆÀÌµğ Àß¸ø ÀÔ·Â
+					else {			// ì•„ì´ë”” ì‹¤íŒ¨
 						message = false;
 						request.setAttribute("message", message);
 					}
@@ -93,16 +93,37 @@ public class LoginControl extends HttpServlet {
 				}
 				viewName="/view/index.jsp";
 			}
-			else if(action.equals("checkid")) {		// ¾ÆÀÌµğ Áßº¹ °Ë»ç
-				String id = request.getParameter("user_id");
-				System.out.println("ds");
+			else if(action.equals("checkid")) {		// ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+				response.setCharacterEncoding("UTF-8");
+				//response.setContentType("text/plain");
+				String id = request.getParameter("userid");
+
+				int data = 0;
 				try {
-					message = dao.ConfirmId(id);
+					data = dao.ConfirmId(id);
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				viewName = null;
+				response.getWriter().print(data);
+			}
+			else if(action.equals("checknick")) {		// ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+				response.setCharacterEncoding("UTF-8");
+				//response.setContentType("text/plain");
+				String nick = request.getParameter("nick");
+
+				int data = 0;
+				try {
+					data = dao.ConfirmNick(nick);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName = null;
+				response.getWriter().print(data);
 			}
 		}
 		if(viewName != null) {
