@@ -47,42 +47,16 @@ public abstract class SillaDao {
 			}
 			return member;
 		}
-		public int ConfirmId(String id) throws SQLException{
+		public int Over_Confirm(String id,String input) throws SQLException{
 			connectDB();
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			
 			int result = 0;
 			try {						
-				String sql="select id from member where id=?";
+				String sql="select "+input+" from member where "+input+"=?";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, id);
-				rs = stmt.executeQuery();
-				
-				if(rs.next()) {
-					result = 1;		// 아이디 중복
-
-				}
-				
-			}catch(SQLException e) {
-				throw e;
-			} finally {
-				if(rs != null) rs.close();
-				if(stmt != null) stmt.close();  
-				disconnectDB();
-			}
-			return result;
-		}
-		public int ConfirmNick(String nick) throws SQLException{
-			connectDB();
-			PreparedStatement stmt = null;
-			ResultSet rs = null;
-			
-			int result = 0;
-			try {						
-				String sql="select nickname from member where nickname=?";
-				stmt = con.prepareStatement(sql);
-				stmt.setString(1, nick);
 				rs = stmt.executeQuery();
 				
 				if(rs.next()) {

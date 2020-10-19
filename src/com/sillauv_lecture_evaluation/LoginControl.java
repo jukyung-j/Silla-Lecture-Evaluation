@@ -40,7 +40,7 @@ public class LoginControl extends HttpServlet {
 		String viewName = null;
 		MemberDO member = new MemberDO(); 
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
-		boolean message = true;		// �˸� â
+		boolean message = true;		// 로그인 알림 메세지
 
 		if(dao == null) {
 			ServletContext context = getServletContext();
@@ -55,14 +55,14 @@ public class LoginControl extends HttpServlet {
 		
 		if(pathInfo != null && pathInfo.length() > 1) {
 			if(pathInfo.equals("/index")) {
-				viewName = "/view/index.jsp";
+				viewName = "/view/index2.jsp";
 			}
 			else if(pathInfo.equals("/join_form")) {
-				viewName="/view/join_form.jsp";
+				viewName="/view/join_form2.jsp";
 			}
 		}
 		else
-			viewName="/view/index.jsp";
+			viewName="/view/index2.jsp";
 
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 확인
@@ -91,40 +91,35 @@ public class LoginControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="/view/index.jsp";
+				viewName="/view/index2.jsp";
 			}
-			else if(action.equals("checkid")) {		// 아이디 중복 확인
+			else if(action.equals("overlapping_check")) {		// 아이디와 닉네임 중복 확인
 				response.setCharacterEncoding("UTF-8");
-				//response.setContentType("text/plain");
-				String id = request.getParameter("userid");
-
+				String id;
 				int data = 0;
-				try {
-					data = dao.ConfirmId(id);
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(request.getParameter("userid") != null) {
+					id = request.getParameter("userid");
+					try {
+						data = dao.Over_Confirm(id, "id");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				else if(request.getParameter("usernick") != null){
+					id = request.getParameter("usernick");
+					try {
+						data = dao.Over_Confirm(id, "nickname");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 				viewName = null;
 				response.getWriter().print(data);
 			}
-			else if(action.equals("checknick")) {		// 아이디 중복 확인
-				response.setCharacterEncoding("UTF-8");
-				//response.setContentType("text/plain");
-				String nick = request.getParameter("nick");
-
-				int data = 0;
-				try {
-					data = dao.ConfirmNick(nick);
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				viewName = null;
-				response.getWriter().print(data);
-			}
+		
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {
