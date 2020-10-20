@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,7 +92,7 @@
 	<div class="img">
 	<img src="../img/sillalogo.png" width="230" height="230">
 	</div>	
-	<form>
+	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
     <fieldset class="login">
       <legend align="center" >회원 로그인</legend>
      <table>
@@ -100,18 +100,16 @@
      	<td><input type="text" name="id" placeholder="ID"></td>
      </tr>
    	 <tr> 
-    	 <td><input type="password" name="pw" placeholder="Password" /></td>
+    	 <td><input type="password" name="pwd" placeholder="Password" /></td>
     </tr>	 
     <tr>
-    	<td><input type="button" class="loginbutton" value="로그인" style="width:100%; background:MediumSeaGreen; border-radius:5px; " ></td>
+    	<td><input type="submit" class="loginbutton" value="로그인" style="width:100%; background:MediumSeaGreen; border-radius:5px; " ></td>
     </tr>
      </table>
       <div>
         <div class="other" align="center">
        <ol>
-       	 <a href="join_form.jsp">회원가입 / </a>
-       	 <a href="">ID 찾기 / </a>
-       	 <a href="">비밀번호 찾기</a>
+       	 <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form'>회원가입 </a>
        </ol>
        </div>
       </div>
@@ -121,5 +119,10 @@
 	<footer align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
+	<c:if test="${message==false}" >
+	<script>
+		alert("아이디나 비밀번호를 다시 입력해주세요.");
+	</script>
+</c:if> 
 </body>
 </html>

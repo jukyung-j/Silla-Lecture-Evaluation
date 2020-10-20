@@ -55,14 +55,14 @@ public class LoginControl extends HttpServlet {
 		
 		if(pathInfo != null && pathInfo.length() > 1) {
 			if(pathInfo.equals("/index")) {
-				viewName = "/view/index2.jsp";
+				viewName = "/view/index.jsp";
 			}
 			else if(pathInfo.equals("/join_form")) {
 				viewName="/view/join_form2.jsp";
 			}
 		}
 		else
-			viewName="/view/index2.jsp";
+			viewName="/view/index.jsp";
 
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 확인
@@ -91,13 +91,13 @@ public class LoginControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="/view/index2.jsp";
+				viewName="/view/index.jsp";
 			}
 			else if(action.equals("overlapping_check")) {		// 아이디와 닉네임 중복 확인
 				response.setCharacterEncoding("UTF-8");
 				String id;
 				int data = 0;
-				if(request.getParameter("userid") != null) {
+				if(request.getParameter("userid") != null) {	// 아이디 중복 확인
 					id = request.getParameter("userid");
 					try {
 						data = dao.Over_Confirm(id, "id");
@@ -106,7 +106,7 @@ public class LoginControl extends HttpServlet {
 						e.printStackTrace();
 					}
 				}
-				else if(request.getParameter("usernick") != null){
+				else if(request.getParameter("usernick") != null){	// 닉네임 중복 확인
 					id = request.getParameter("usernick");
 					try {
 						data = dao.Over_Confirm(id, "nickname");
