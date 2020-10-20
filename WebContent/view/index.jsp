@@ -92,6 +92,7 @@
 	<div class="img">
 	<img src="../img/sillalogo.png" width="230" height="230">
 	</div>	
+	
 	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
     <fieldset class="login">
       <legend align="center" >회원 로그인</legend>
