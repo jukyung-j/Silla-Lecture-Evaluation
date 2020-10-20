@@ -28,7 +28,7 @@
 	.icon{
 		float:left; 
 		margin-top:15%; 
-		margin-left:25%;
+		margin-left:15%;
 		clear:both;
 		margin-right:1%;
 		background:none;
@@ -73,6 +73,10 @@
 	input{
 		outline:none;
 	}
+	@media screen and (min-width: 401px) {
+ 	.icon.hidden {
+}
+}
 	</style>
 
 </head>
@@ -80,7 +84,7 @@
 	<header>
 		<h1>신라대학교 강의 평가</h1> 
 	</header>
-	<img src="../img/icon.png" class="icon" width="200" height="200">
+	<img src="../img/sillalogo.png" class="icon" width="200" height="200">
 	<div>
 	<form>
 	<fieldset class="join">

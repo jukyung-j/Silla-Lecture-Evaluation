@@ -60,7 +60,7 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					result = 1;		// ì•„ì´ë”” ì¤‘ë³µ
+					result = 1;		// ?•„?´?”” ì¤‘ë³µ
 				}
 				
 			}catch(SQLException e) {

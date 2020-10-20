@@ -42,11 +42,12 @@
 	}
 	footer{
 		background: gray;
-		position:absolute;
+		position:relative;
 		bottom:0;
 		width:100%;
 		height:40px;   	
 		padding-top:15px;
+		margin-top:10%;
 	}
 	h1{
 		text-align:center;
@@ -57,7 +58,7 @@
 		position:absolute;
 		background:none;
 		margin-left:66%;
-		margin-top:-34px;
+		margin-top:-43px;
 	}
 	table{
 		margin-left:auto;
@@ -86,10 +87,10 @@
 		<div class="serach">
 		<input type="text" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
-		<button class="button1"><img src="../img/bicon.png" style="width:30px; height:30px;"></button>		
+		<button class="button1"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
 	<div class="img">
-	<img src="../img/sillaimg.jpg" width="230" height="230">
+	<img src="../img/sillalogo.png" width="230" height="230">
 	</div>	
 	<form>
     <fieldset class="login">
