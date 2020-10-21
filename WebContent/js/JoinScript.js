@@ -24,6 +24,7 @@ window.onload = function(){
 					} else {
 						$check.text("다시 입력해주세요.");
 						$check.css('color','red');
+						$("#reg_submit").attr("disabled",true);
 					}
 				}
 			}, error : function(){
@@ -33,11 +34,27 @@ window.onload = function(){
 	}
 	function send_mail(){		// 이메일 인증 보내기
 		var user_mail = $("#user_email").val();
+		
 		$.ajax({
-			url : 'mailsend?action=send_mail&usermail='+user_mail,
-			type: 'get',
-			success : function(data){
-				console.log(data);
+			url  : 'mailsend?action=send_mail&usermail='+user_mail,
+			type : 'get',
+			success : function(data) {
+				console.log("key:"+data);
+				$("#code_btn").attr("disabled",false);
+				$("#code_btn").click(function(){
+					var ecode = $("#e_code").val();
+					if(data==ecode){	// 인증번호 맞게 입력
+						$("#code_check").text("인증에 성공하셨습니다.");
+						$("#code_check").css('color','blue');
+						$("#reg_submit").attr("disabled",false);
+					}
+					else{				// 인증번호 실패
+						$("#code_check").text("인증에 실패하셨습니다. 다시입력해 주세요.");
+						$("#code_check").css('color','red');
+						$("#reg_submit").attr("disabled",true);
+					}
+				});
+				
 			}, error : function(){
 				console.log("메일실패");
 			}
@@ -74,11 +91,10 @@ window.onload = function(){
 		if(mailJ.test($("#user_email").val())){		// 이메일 정규식 검사
 			send_mail();
 			$("#e_code").attr("disabled",false);
-			$("#reg_submit").attr("disabled",false);
+			
 		} else{
 			alert("sillain.ac.kr로 입력해주세요.");
 			$("#reg_submit").attr("disabled",true);
 		}
-		
 	});
 } 

@@ -59,6 +59,13 @@ public class LoginControl extends HttpServlet {
 			else if(pathInfo.equals("/join_form")) {
 				viewName="/view/join_form2.jsp";
 			}
+			else if(pathInfo.equals("/mailsend")) {
+				MailControl mail = new MailControl();
+				mail.doGet(request, response);
+			}
+			else if(pathInfo.equals("/main")) {
+				viewName="/view/main.jsp";
+			}
 		}
 		else
 			viewName="/view/index.jsp";
@@ -67,6 +74,9 @@ public class LoginControl extends HttpServlet {
 			if(action.equals("login")) {		// 로그인 확인
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
+				String nick;
+				String dept;
+				
 				message = true;	// 잘못된 로그인 확인
 	
 				try {
@@ -75,6 +85,8 @@ public class LoginControl extends HttpServlet {
 						if(member.getPwd().equals(pwd)) {	// 로그인 성공
 							message = true;
 							request.setAttribute("message", message);
+							session.setAttribute("nick", member.getNickname());
+							session.setAttribute("dept", member.getDept());
 						}
 						else {		// 비밀번호 실패
 							message = false;
@@ -90,7 +102,7 @@ public class LoginControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="/view/index.jsp";
+				viewName="redirect:/lecture-evaluation/main";
 			}
 			else if(action.equals("overlapping_check")) {		// 아이디와 닉네임 중복 확인
 				response.setCharacterEncoding("UTF-8");
@@ -118,9 +130,23 @@ public class LoginControl extends HttpServlet {
 				viewName = null;
 				response.getWriter().print(data);
 			}
-			else if(action.equals("send_mail")) {		// 이메일 인증번호 
-				String u_mail = request.getParameter("usermail");
+			else if(action.equals("join")) {		// 회원가입 DB 등록
+				member.setName(request.getParameter("name"));
+				member.setNickname(request.getParameter("nickname"));
+				member.setId(request.getParameter("user_id"));
+				member.setPwd(request.getParameter("pwd"));
+				member.setDept(request.getParameter("dept"));
+				member.setEmail(request.getParameter("email"));
+
+				try {
+					dao.Join(member);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="redirect:/view/index";
 			}
+			
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {

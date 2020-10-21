@@ -30,12 +30,11 @@
 		</select><br>
 		<label for="user_email">이메일</label>
 			<input type="text" name="email" id="user_email" value="@sillain.ac.kr" required /> 
-			<a href="http://outlook.com/sillain.ac.kr">이메일</a>
+			<a href="http://outlook.com/sillain.ac.kr" target="_blank">이메일</a>
 			<input type="button" value="인증번호 전송" id="check_mail" /><br>
 			<input type="text" name="verifi" id="e_code" ><input type="button" value="확인" id="code_btn"><br>
 			<div id="code_check"></div>
-		<input type="submit" value="회원가입" id="reg_submit" /><br>
-	</form>
+		<input type="submit" value="회원가입" id="reg_submit" ></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/JoinScript.js"> </script>
 </body>

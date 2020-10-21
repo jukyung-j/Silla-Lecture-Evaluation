@@ -60,7 +60,7 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				
 				if(rs.next()) {
-					result = 1;		// ?��?��?�� 중복
+					result = 1;		//  닉네임이나 아이디 중복
 				}
 				
 			}catch(SQLException e) {
@@ -85,7 +85,7 @@ public abstract class SillaDao {
 				stmt.setString(1, member.getId());
 				stmt.setString(2, member.getPwd());
 				stmt.setString(3, member.getName());
-				stmt.setString(4, member.getName());
+				stmt.setString(4, member.getNickname());
 				stmt.setString(5, member.getDept());
 				stmt.setString(6, member.getEmail());
 				
