@@ -52,7 +52,6 @@ public class LoginControl extends HttpServlet {
 		
 		// step #2. data processing
 		// get routing info.
-		
 		if(pathInfo != null && pathInfo.length() > 1) {
 			if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
@@ -119,7 +118,9 @@ public class LoginControl extends HttpServlet {
 				viewName = null;
 				response.getWriter().print(data);
 			}
-		
+			else if(action.equals("send_mail")) {		// 이메일 인증번호 
+				String u_mail = request.getParameter("usermail");
+			}
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {
