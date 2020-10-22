@@ -63,9 +63,6 @@ public class LoginControl extends HttpServlet {
 				MailControl mail = new MailControl();
 				mail.doGet(request, response);
 			}
-			else if(pathInfo.equals("/main")) {
-				viewName="/view/main.jsp";
-			}
 		}
 		else
 			viewName="/view/index.jsp";
@@ -144,7 +141,7 @@ public class LoginControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="redirect:/view/index";
+				viewName="redirect:/lecture-evaluation/index";
 			}
 			
 		}

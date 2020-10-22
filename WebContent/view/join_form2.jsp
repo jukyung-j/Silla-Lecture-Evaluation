@@ -24,7 +24,7 @@
 		<label for="user_pw2">비밀번호 확인</label>
 			<input type="password" id="user_pw2" required><br>
 			<div id="pw2_check"></div>
-		학과<select name="dept" id="dept">
+		학과<select name="dept" id="dept" required>
 			<option value=""></option>
 			<option value="컴퓨터소프트웨어공학부">컴퓨터소프트웨어공학부</option>
 		</select><br>

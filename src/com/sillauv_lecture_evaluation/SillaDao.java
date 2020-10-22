@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 
@@ -98,6 +101,72 @@ public abstract class SillaDao {
 			}
 			return result;
 		} 
-	
+		public List<LectureDO> Search(String name) throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select lec_name, p_name from lecture where lec_name=? or p_name=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, name);
+				stmt.setString(2, name);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+		public List<LectureDO> Search_dept(String dept) throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select * from eval where dept = ? order by todate desc";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, dept);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setDept(rs.getString("dept"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setTodate(rs.getString("todate"));
+						
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+
 
 }

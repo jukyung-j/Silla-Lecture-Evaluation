@@ -85,47 +85,23 @@
 	</header>
 	<main>
 	${nick }님
+	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
 	<nav>
 		<div class="serach">
-		<input type="text" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
+			<input type="text" name="search_id" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
-		<button class="button1"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
+		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
-	<div class="img">
-	<img src="../img/sillalogo.png" width="230" height="230">
-	</div>	
-	
-	<form action='?action=login' method="POST">
-    <fieldset class="login">
-      <legend align="center" >회원 로그인</legend>
-     <table>
-     <tr>
-     	<td><input type="text" name="id" placeholder="ID"></td>
-     </tr>
-   	 <tr> 
-    	 <td><input type="password" name="pwd" placeholder="Password" /></td>
-    </tr>	 
-    <tr>
-    	<td><input type="submit" class="loginbutton" value="로그인" style="width:100%; background:MediumSeaGreen; border-radius:5px; " ></td>
-    </tr>
-     </table>
-      <div>
-        <div class="other" align="center">
-       <ol>
-       	 <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form'>회원가입 </a>
-       </ol>
-       </div>
-      </div>
-    </fieldset>
-  </form>
+		<c:if test="${deptlist==null }" >
+			등록된 최신글이 없습니다.
+		</c:if>
+	</form>
 	</main>
+	
 	<footer align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
-	<c:if test="${message==false}" >
 	<script>
-		alert("아이디나 비밀번호를 다시 입력해주세요.");
 	</script>
-</c:if> 
 </body>
 </html>
