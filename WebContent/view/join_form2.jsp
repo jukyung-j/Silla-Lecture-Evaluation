@@ -24,10 +24,10 @@
 		<label for="user_pw2">비밀번호 확인</label>
 			<input type="password" id="user_pw2" required><br>
 			<div id="pw2_check"></div>
-		학과<select name="dept" id="dept" required>
-			<option value=""></option>
-			<option value="컴퓨터소프트웨어공학부">컴퓨터소프트웨어공학부</option>
-		</select><br>
+			
+	학과<c:import url="http://localhost:8080/sillauv/view/dept.jsp" />
+			
+		<br>
 		<label for="user_email">이메일</label>
 			<input type="text" name="email" id="user_email" value="@sillain.ac.kr" required /> 
 			<a href="http://outlook.com/sillain.ac.kr" target="_blank">이메일</a>

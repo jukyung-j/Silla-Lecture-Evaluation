@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class MainControl
  */
-@WebServlet("/lecture-evaluation/main")
+@WebServlet("/lecture-evaluation/main/*")
 public class MainControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,18 +41,29 @@ public class MainControl extends HttpServlet {
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
 		
 		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
-			List<LectureDO> leclist = null;
+			List<LectureDO> deptlist = null;
 			String dept = (String) session.getAttribute("dept");
 			
 			try {					// 해당학과의 최신글 조회
-				leclist = dao.Search_dept(dept);
-				System.out.println(leclist);
-				session.setAttribute("deptlist", leclist);
+				deptlist = dao.Search_dept(dept);
+				session.setAttribute("deptlist", deptlist);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			viewName="/view/main.jsp";
+		}else {
+
+			if(pathInfo.equals("/register_form")) {
+				viewName="/view/register.jsp";
+			}
+			else if(pathInfo.equals("/inquiry")) {
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				
+				viewName="/view/inquiry.jsp";
+				
+			}
 		}
 		
 		
@@ -62,13 +73,28 @@ public class MainControl extends HttpServlet {
 				List<LectureDO> lectureList = null;
 				try {
 					lectureList = dao.Search(search_id);
-					System.out.println(lectureList);
 					request.setAttribute("lectureList", lectureList);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				viewName="/view/search.jsp";
 			}
+			else if(action.equals("register")) {
+				lecture.setLec_name(request.getParameter("lec_name"));
+				lecture.setP_name(request.getParameter("p_name"));
+				lecture.setDept(request.getParameter("dept"));
+			
+				try {
+					dao.insertdept(lecture);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				viewName="/view/main.jsp";
+			}
+			
 		}
 		
 		if(viewName != null) {

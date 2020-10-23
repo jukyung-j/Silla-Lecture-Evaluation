@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 public abstract class SillaDao {
 	protected Connection con = null;
 		
@@ -108,10 +109,10 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select lec_name, p_name from lecture where lec_name=? or p_name=?";
+				String sql = "SELECT lec_name, p_name from lecture where lec_name LIKE ? or p_name LIKE ?";
 				stmt = con.prepareStatement(sql);
-				stmt.setString(1, name);
-				stmt.setString(2, name);
+				stmt.setString(1, "%"+name+"%");
+				stmt.setString(2, "%"+name+"%");
 				rs = stmt.executeQuery();
 				
 				if(rs.isBeforeFirst()) {
@@ -167,6 +168,27 @@ public abstract class SillaDao {
 			}
 			return lectureList;
 		}
+		public int insertdept(LectureDO lecture) throws SQLException {
+			connectDB();
+			
+			int result = 0;
+			PreparedStatement stmt = null;
+			try {
+				
+				String sql= "insert into lecture(lec_name, p_name, dept) values (?,?,?)";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				stmt.setString(3, lecture.getDept());
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
+		} 
 
 
 }
