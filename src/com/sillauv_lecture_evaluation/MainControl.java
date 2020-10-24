@@ -60,7 +60,14 @@ public class MainControl extends HttpServlet {
 			else if(pathInfo.equals("/inquiry")) {
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
-				
+				List<LectureDO> eval_list = null;
+				try {
+					eval_list=dao.inquiry(lec_name, p_name);
+					request.setAttribute("eval_list", eval_list);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				viewName="/view/inquiry.jsp";
 				
 			}

@@ -189,6 +189,39 @@ public abstract class SillaDao {
 			}
 			return result;
 		} 
-
+		public List<LectureDO> inquiry(String lec_name,String p_name) throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * eval where lec_name = ? AND p_name = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1,lec_name);
+				stmt.setString(2, p_name);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setTodate(rs.getString("todate"));
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
 
 }
