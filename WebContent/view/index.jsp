@@ -87,10 +87,10 @@
 		<div class="serach">
 		<input type="text" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
-		<button class="button1"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
+		<button class="button1"><img src="${pageContext.request.contextPath}/img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
 	<div class="img">
-	<img src="../img/sillalogo.png" width="230" height="230">
+	<img src="${pageContext.request.contextPath}/img/sillalogo.png" width="230" height="230">
 	</div>	
 	
 	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
@@ -121,9 +121,14 @@
 		201795025 김유진 / 201795081 정주경
 	</footer>
 	<c:if test="${message==false}" >
-	<script>
-		alert("아이디나 비밀번호를 다시 입력해주세요.");
-	</script>
-</c:if> 
+		<script>
+			alert("아이디나 비밀번호를 다시 입력해주세요.");
+		</script>
+	</c:if> 
+	<c:if test="${cookie.loginCookie.value != null}">
+		<script>
+			location.href="${pageContext.request.contextPath}/lecture-evaluation/main";
+		</script>
+	</c:if>
 </body>
 </html>

@@ -196,7 +196,7 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * eval where lec_name = ? AND p_name = ?";
+				String sql = "SELECT * FROM eval where lec_name = ? AND p_name = ?";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1,lec_name);
 				stmt.setString(2, p_name);

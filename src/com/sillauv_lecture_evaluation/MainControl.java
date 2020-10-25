@@ -2,6 +2,8 @@ package com.sillauv_lecture_evaluation;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -64,6 +66,8 @@ public class MainControl extends HttpServlet {
 				try {
 					eval_list=dao.inquiry(lec_name, p_name);
 					request.setAttribute("eval_list", eval_list);
+					request.setAttribute("lec_name", lec_name);
+					request.setAttribute("p_name", p_name);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -80,7 +84,7 @@ public class MainControl extends HttpServlet {
 				List<LectureDO> lectureList = null;
 				try {
 					lectureList = dao.Search(search_id);
-					request.setAttribute("lectureList", lectureList);
+					session.setAttribute("lectureList", lectureList);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,7 +105,17 @@ public class MainControl extends HttpServlet {
 				
 				viewName="/view/main.jsp";
 			}
-			
+			else if(action.equals("add_eval")) {
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				request.setAttribute("lec_name", lec_name);
+				request.setAttribute("p_name", p_name);
+				Date now = new Date();	// 날짜 나중에 수정
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd : hh:mm:ss");
+				String time = sdf.format(now);
+				System.out.println(time);
+				viewName="/view/insert_eval.jsp";
+			}
 		}
 		
 		if(viewName != null) {

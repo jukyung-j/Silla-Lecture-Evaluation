@@ -7,6 +7,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,31 +76,40 @@ public class LoginControl extends HttpServlet {
 				String dept;
 				
 				message = true;	// 잘못된 로그인 확인
-	
+				
 				try {
 					member = dao.Login(id);
 					if(member != null) {
 						if(member.getPwd().equals(pwd)) {	// 로그인 성공
 							message = true;
+							Cookie cookie = new Cookie("loginCookie", session.getId());
+							Cookie ncookie = new Cookie("nickCookie",member.getNickname()); 
 							request.setAttribute("message", message);
-							session.setAttribute("nick", member.getNickname());
 							session.setAttribute("dept", member.getDept());
+							cookie.setPath("/");
+				            cookie.setMaxAge(60*60*24);// 단위는 (초)임으로 1일정도로 유효시간을 설정해 준다.
+				            ncookie.setPath("/");
+				            ncookie.setMaxAge(60*60*24);
+				            response.addCookie(cookie);// 쿠키를 적용해 준다.
+				            response.addCookie(ncookie);
+							viewName="redirect:/lecture-evaluation/main";
 						}
 						else {		// 비밀번호 실패
 							message = false;
 							request.setAttribute("message", message);
-							
+							viewName="/view/index.jsp";
 						}
 					}
 					else {			// 아이디 실패
 						message = false;
 						request.setAttribute("message", message);
+						viewName="/view/index.jsp";
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="redirect:/lecture-evaluation/main";
+				
 			}
 			else if(action.equals("overlapping_check")) {		// 아이디와 닉네임 중복 확인
 				response.setCharacterEncoding("UTF-8");

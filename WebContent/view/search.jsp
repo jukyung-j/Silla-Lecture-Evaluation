@@ -84,7 +84,7 @@
 		<h2>검색된 페이지</h2>
 	</header>
 	<main>
-	${nick }님
+	${cookie.nickCookie.value }님
 	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
 	<nav>
 		<div class="serach">
