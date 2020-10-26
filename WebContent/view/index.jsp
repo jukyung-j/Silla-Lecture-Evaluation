@@ -84,10 +84,12 @@
 	</header>
 	<main>
 	<nav>
+	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
 		<div class="serach">
-		<input type="text" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
+		<input type="text" placeholder="과목명 또는 교수명 입력" name="search_id" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
-		<button class="button1"><img src="${pageContext.request.contextPath}/img/search.png" style="width:50px; height:50px;"></button>		
+		<button class="submit"><img src="${pageContext.request.contextPath}/img/search.png" style="width:50px; height:50px;"></button>		
+	</form>
 	</nav>
 	<div class="img">
 	<img src="${pageContext.request.contextPath}/img/sillalogo.png" width="230" height="230">

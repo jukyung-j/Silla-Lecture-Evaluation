@@ -95,8 +95,9 @@
 	</form>
 		<c:if test="${lectureList==null }" >
 			등록된 글이 없습니다.
-			<button id="register" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/main/register_form'" >새로 만들기</button>
+			
 		</c:if>
+		<button id="register" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/main/register_form'" >새로 만들기</button>
 		<c:if test="${lectureList!=null }">
 			
 				<c:forEach var="lec_list" items="${lectureList}" >
@@ -118,11 +119,17 @@
 	<footer align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
-	<script>
-	function inquiery(lec_name,p_name){
-		location.href="${pageContext.request.contextPath}/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
-	}
-	
+		<script>	
+		function inquiery(lec_name,p_name){
+			if(${cookie.loginCookie.value!=null}){
+				location.href="${pageContext.request.contextPath}/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
+			}
+			else{
+				alert("로그인해주세요");
+			}
+		}
 	</script>
+	
+	
 </body>
 </html>

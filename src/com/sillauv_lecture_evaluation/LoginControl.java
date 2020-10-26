@@ -84,14 +84,17 @@ public class LoginControl extends HttpServlet {
 							message = true;
 							Cookie cookie = new Cookie("loginCookie", session.getId());
 							Cookie ncookie = new Cookie("nickCookie",member.getNickname()); 
+							Cookie dcookie = new Cookie("deptCookie",member.getDept());
 							request.setAttribute("message", message);
-							session.setAttribute("dept", member.getDept());
 							cookie.setPath("/");
 				            cookie.setMaxAge(60*60*24);// 단위는 (초)임으로 1일정도로 유효시간을 설정해 준다.
 				            ncookie.setPath("/");
 				            ncookie.setMaxAge(60*60*24);
+				            dcookie.setPath("/");
+				            dcookie.setMaxAge(60*60*24);
 				            response.addCookie(cookie);// 쿠키를 적용해 준다.
 				            response.addCookie(ncookie);
+				            response.addCookie(dcookie);
 							viewName="redirect:/lecture-evaluation/main";
 						}
 						else {		// 비밀번호 실패

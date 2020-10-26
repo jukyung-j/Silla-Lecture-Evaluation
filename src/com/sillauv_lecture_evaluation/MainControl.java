@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,7 @@ public class MainControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
+		
 		HttpSession session = request.getSession();
 		String pathInfo = request.getPathInfo();
 		String action = request.getParameter("action");
@@ -44,11 +46,11 @@ public class MainControl extends HttpServlet {
 		
 		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
 			List<LectureDO> deptlist = null;
-			String dept = (String) session.getAttribute("dept");
-			
+			Cookie[] cookies = request.getCookies();
+			String dept = cookies[3].getValue();
 			try {					// 해당학과의 최신글 조회
 				deptlist = dao.Search_dept(dept);
-				session.setAttribute("deptlist", deptlist);
+				request.setAttribute("deptlist", deptlist);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,9 +67,9 @@ public class MainControl extends HttpServlet {
 				List<LectureDO> eval_list = null;
 				try {
 					eval_list=dao.inquiry(lec_name, p_name);
-					request.setAttribute("eval_list", eval_list);
-					request.setAttribute("lec_name", lec_name);
-					request.setAttribute("p_name", p_name);
+					session.setAttribute("eval_list", eval_list);
+					session.setAttribute("lec_name", lec_name);
+					session.setAttribute("p_name", p_name);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -91,7 +93,7 @@ public class MainControl extends HttpServlet {
 				}
 				viewName="/view/search.jsp";
 			}
-			else if(action.equals("register")) {
+			else if(action.equals("register")) {	// 강의가 없으면 강의 등록
 				lecture.setLec_name(request.getParameter("lec_name"));
 				lecture.setP_name(request.getParameter("p_name"));
 				lecture.setDept(request.getParameter("dept"));
@@ -108,13 +110,24 @@ public class MainControl extends HttpServlet {
 			else if(action.equals("add_eval")) {
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
-				request.setAttribute("lec_name", lec_name);
-				request.setAttribute("p_name", p_name);
-				Date now = new Date();	// 날짜 나중에 수정
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd : hh:mm:ss");
-				String time = sdf.format(now);
-				System.out.println(time);
+				session.setAttribute("lec_name", lec_name);
+				session.setAttribute("p_name", p_name);
+				
 				viewName="/view/insert_eval.jsp";
+			}
+			else if(action.equals("insert_eval")) {		// 강의 평가 저장
+				
+				lecture.setLec_name(request.getParameter("lec_name"));
+				lecture.setP_name(request.getParameter("p_name"));
+				lecture.setStar(Integer.parseInt(request.getParameter("star")));
+				lecture.setContent(request.getParameter("content"));
+				try {
+					dao.insert_eval(lecture);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="/view/inquiry.jsp";
 			}
 		}
 		

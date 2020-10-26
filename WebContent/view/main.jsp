@@ -92,8 +92,30 @@
 		</div>
 		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
-		<c:if test="${deptlist==null }" >
+		<c:if test="${deptlist==null}" >
 			등록된 최신글이 없습니다.
+		</c:if>
+		<c:if test="${deptlist!=null}">
+		<c:forEach var="dept_list" items="${deptlist}" >
+					<table border="1">
+						<tr>
+							<td>강의명:${dept_list.lec_name}</td>
+						</tr>
+						<tr>
+							<td>교수명:${dept_list.p_name}</td>
+						</tr>
+						<tr>
+							<td>별점:${dept_list.star}</td>
+						</tr>
+						<tr>
+							<td>내용:${dept_list.content}</td>
+						</tr>
+						<tr>
+							<td>날짜:${dept_list.todate}</td>
+						</tr>
+					</table>
+					<br>
+			</c:forEach>
 		</c:if>
 	</form>
 	</main>

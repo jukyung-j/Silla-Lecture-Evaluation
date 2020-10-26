@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,7 +142,7 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select * from eval where dept = ? order by todate desc";
+				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, dept);
 				rs = stmt.executeQuery();
@@ -196,7 +198,7 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM eval where lec_name = ? AND p_name = ?";
+				String sql = "SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1,lec_name);
 				stmt.setString(2, p_name);
@@ -222,6 +224,40 @@ public abstract class SillaDao {
 				disconnectDB();
 			}
 			return lectureList;
+		}
+		public int insert_eval(LectureDO lecture) throws SQLException {
+			connectDB();
+			
+			int result = 0;
+			ResultSet rs = null;
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+			String ss=sdf.format(new java.util.Date());
+			Timestamp time= Timestamp.valueOf(ss);
+			PreparedStatement stmt = null;
+			try {
+				String dept = "SELECT dept FROM lecture WHERE lec_name = ? AND p_name = ?";
+				stmt = con.prepareStatement(dept);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				rs = stmt.executeQuery();
+				rs.next();
+				dept = rs.getString("dept");
+				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate) values (?,?,?,?,?,?)";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				stmt.setString(3, dept);
+				stmt.setInt(4, lecture.getStar());
+				stmt.setString(5, lecture.getContent());
+				stmt.setTimestamp(6, time);
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
 		}
 
 }

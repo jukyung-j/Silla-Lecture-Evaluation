@@ -1,5 +1,6 @@
 package com.sillauv_lecture_evaluation;
 
+
 public class LectureDO {
 	private String lec_name;
 	private String p_name;
