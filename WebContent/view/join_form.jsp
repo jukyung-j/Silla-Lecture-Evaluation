@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>½Å¶ó´ëÇĞ±³ °­ÀÇ Æò°¡</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ì‹ ë¼ëŒ€í•™êµ ê°•ì˜ í‰ê°€</title>
 	
 <style>
 	header{
@@ -17,6 +18,8 @@
   		color: white;
   		background: MediumSeaGreen;
   		font-weight: bold;
+  		font-size:25px;
+  		
 	}
 	h1{
 		text-align:center;
@@ -33,31 +36,38 @@
 		margin-right:1%;
 		background:none;
 	}
-	fieldset{
+	.join{
 		background : none;
-		width:400px;
-		height:500px;
+		width:600px;
+		height:600px;
 		padding-top:1%;
 		border-radius:5px;
 		margin-left:30%;
 		margin-top:3%;
+		
 	}
-	table{
+	.table{
 		border-collapse:separate;
 		border-spacing:0 10px;
+	}
+	.textbox{
+		width:300px;
+		height : 30px;
+		margin-left:5%;
 	}
 	div{
 		padding : 100px 500px;
 		line-height : 30px;
 		
 	}
-	footer{
+	.footer{
 		background: gray;
-		position:absolute;
+		position:relative;
 		bottom:0;
 		width:100%;
 		height:40px;  
 		padding-top:15px;
+		margin-top:10%;
 		 	
 	}
 	.join_button{
@@ -73,119 +83,204 @@
 	input{
 		outline:none;
 	}
-	@media screen and (min-width: 401px) {
- 	.icon.hidden {
-}
+	.emailbtn{
+		margin-left:100%;
+		width:100px;
+	}
+	.emailbox{
+		border-right:none;
+		border-top:none;
+		border-left:none;
+		background:#EAEAEA;
+		width:100px;
+		margin-left : 160%;
+		margin-top:-5%;
+	}
+	
+	
+	@media(max-width:425px){
+		.icon{
+			width:350px;
+			height:350px;
+			margin-left:350px;
+			margin-top:150px;
+		}
+		header{
+			width:1000px;
+			height:200px;
+			font-size:30px;
+		}
+		.join{
+			margin-left:-500px;
+			margin-top:550px;
+			border-radius:30px;
+			width:970px;
+			height:1300px;
+			font-size:40px;
+			font-family:ê³ ë”•;
+		}
+		.textbox{
+			width:95%;
+			height:70px;
+			font-size:25px;
+			margin-left:6%;
+		}
+		.table{
+			border-spacing:0 30px;
+			padding-left:px;
+			font-size:40px;
+		}
+		.footer{
+			position:absoulte;
+			margin-top:30%;
+			bottom:0;
+			left:0;
+			right:0;
+			width:1000px;
+			height:50px;
+		}
+		.join_button{
+			font-size:40px;
+			margin-top:100px;
+			width:350px;
+			height:100px;	
+		}
+		.emailbtn{
+			margin-top:5%;
+			margin-left:5%;
+			width:40%;
+			height:50px;
+			border-radius:15px;
+			font-size:20px;
+		}
+		
+		.emailbox{
+			font-size:20px;
+			align-text:center;
+		}
+	}
 }
 	</style>
 
 </head>
 <body>
 	<header>
-		<h1>½Å¶ó´ëÇĞ±³ °­ÀÇ Æò°¡</h1> 
+		<h1>ì‹ ë¼ëŒ€í•™êµ ê°•ì˜ í‰ê°€</h1> 
 	</header>
-	<img src="../img/sillalogo.png" class="icon" width="200" height="200">
+	<img src="../img/sillalogo.png" class="icon" width="250" height="250">
 	<div>
 	<form>
 	<fieldset class="join">
-      <legend align="center"><h2>È¸¿ø °¡ÀÔ</h2></legend>
-    <table>
+      <legend align="center"><h2>íšŒì› ê°€ì…</h2></legend>
+    <table class="table">
     	<tr>
-    	<th>ÀÌ¸§</th>
+    	<th>ì´ë¦„</th>
     	<td>
-    		<input type="text">
+    		<input type="text" class="textbox">
     	</td>
     	</tr>
     	<tr>
-    	<th>ÇĞ°ú</th>
-    	<td><select >	
-    		<option>ÇĞ°ú ¼±ÅÃ</option>
-    		<option>¹®ÇåÁ¤º¸ÇĞ°ú</option>
-			<option>°æ¿µÇĞºÎ</option>
-			<option>È¸°è¼¼¹«ÇĞ°ú</option>
-			<option>±¤°íÈ«º¸ÇĞ°ú</option>
-			<option>±¹Á¦°ü±¤°æ¿µÇĞºÎ</option>
-			<option>¹«¿ª°æÁ¦ÇĞºÎ ¹«¿ª¹°·ùÇĞÀü°ø</option>
-			<option>¹«¿ª°æÁ¦ÇĞºÎ °æÁ¦±İÀ°ÇĞÀü°ø</option>
-			<option>°£È£ÇĞ°ú</option>
-			<option>¹°¸®Ä¡·áÇĞ°ú</option>
-			<option>Ä¡À§»ıÇĞ°ú</option>
-			<option>¹ÙÀÌ¿À»ê¾÷ÇĞºÎ</option>
-			<option>»ı¸í°úÇĞ°ú</option>
-			<option>½ÄÇ°¿µ¾çÇĞ°ú</option>
-			<option>À£ºùÃ¼À°ÇĞºÎ</option>
-			<option>°ø°ú´ë(°øÅë)</option>
-			<option>MICT´ë(°øÅë)</option>
-			<option>°ÇÃàÇĞºÎ</option>
-			<option>Áö´ÉÇüÀÚµ¿Â÷°øÇĞºÎ</option>
-			<option>ÄÄÇ»ÅÍ¼ÒÇÁÆ®¿ş¾î°øÇĞºÎ</option>
-			<option>½º¸¶Æ®Àü±âÀüÀÚ°øÇĞºÎ</option>
-			<option>À¶ÇÕ±â°è°øÇĞºÎ</option>
-			<option>¿¡³ÊÁöÈ­ÇĞ°øÇĞºÎ</option>
-			<option>½Å¼ÒÀç°øÇĞºÎ</option>
-			<option>À¶ÇÕµğÀÚÀÎÇĞºÎ</option>
-			<option>Ã¢¾÷¿¹¼úÇĞºÎ</option>
-			<option>±³À°ÇĞ°ú</option>
-			<option>À¯¾Æ±³À°°ú</option>
-			<option>±¹¾î±³À°°ú</option>
-			<option>ÀÏ¾î±³À°°ú</option>
-			<option>¿µ¾î±³À°°ú</option>
-			<option>¿ª»ç±³À°°ú</option>
-			<option>¼öÇĞ±³À°°ú</option>
-			<option>ÄÄÇ»ÅÍ±³À°°ú</option>
-			<option>Ã¢Á¶°ø¿¬¿¹¼úÇĞºÎ À½¾ÇÀü°ø</option>
-			<option>Ã¢Á¶°ø¿¬¿¹¼úÇĞºÎ ¹«¿ëÀü°ø</option>
-			<option>Ç×°øÇĞºÎ Ç×°ø¿îÇ×ÇĞÀü°ø</option>
-			<option>Ç×°øÇĞºÎ Ç×°øÁ¤ºñÇĞÀü°ø</option>
-			<option>Ç×°øÇĞºÎ Ç×°ø¼­ºñ½ºÇĞÀü°ø</option>
-			<option>±³¾ç</option>
-			<option>±³Á÷</option>
-			<option>±â¾÷°æ¿µÇĞ°ú</option>
-			<option>ºäÆ¼ºñÁî´Ï½ºÇĞ°ú</option>
-			<option>¿¡³ÊÁö°ü¸®ÇĞ°ú</option>
-			<option>¿Ü±¹ÀÎÀ¯ÇĞ»ı</option>
+    	<th>í•™ê³¼</th>
+    	<td><select class="textbox"	>
+    		<option>í•™ê³¼ ì„ íƒ</option>
+    		<option>ë¬¸í—Œì •ë³´í•™ê³¼</option>
+			<option>ê²½ì˜í•™ë¶€</option>
+			<option>íšŒê³„ì„¸ë¬´í•™ê³¼</option>
+			<option>ê´‘ê³ í™ë³´í•™ê³¼</option>
+			<option>êµ­ì œê´€ê´‘ê²½ì˜í•™ë¶€</option>
+			<option>ë¬´ì—­ê²½ì œí•™ë¶€ ë¬´ì—­ë¬¼ë¥˜í•™ì „ê³µ</option>
+			<option>ë¬´ì—­ê²½ì œí•™ë¶€ ê²½ì œê¸ˆìœ¡í•™ì „ê³µ</option>
+			<option>ê°„í˜¸í•™ê³¼</option>
+			<option>ë¬¼ë¦¬ì¹˜ë£Œí•™ê³¼</option>
+			<option>ì¹˜ìœ„ìƒí•™ê³¼</option>
+			<option>ë°”ì´ì˜¤ì‚°ì—…í•™ë¶€</option>
+			<option>ìƒëª…ê³¼í•™ê³¼</option>
+			<option>ì‹í’ˆì˜ì–‘í•™ê³¼</option>
+			<option>ì›°ë¹™ì²´ìœ¡í•™ë¶€</option>
+			<option>ê³µê³¼ëŒ€(ê³µí†µ)</option>
+			<option>MICTëŒ€(ê³µí†µ)</option>
+			<option>ê±´ì¶•í•™ë¶€</option>
+			<option>ì§€ëŠ¥í˜•ìë™ì°¨ê³µí•™ë¶€</option>
+			<option>ì»´í“¨í„°ì†Œí”„íŠ¸ì›¨ì–´ê³µí•™ë¶€</option>
+			<option>ìŠ¤ë§ˆíŠ¸ì „ê¸°ì „ìê³µí•™ë¶€</option>
+			<option>ìœµí•©ê¸°ê³„ê³µí•™ë¶€</option>
+			<option>ì—ë„ˆì§€í™”í•™ê³µí•™ë¶€</option>
+			<option>ì‹ ì†Œì¬ê³µí•™ë¶€</option>
+			<option>ìœµí•©ë””ìì¸í•™ë¶€</option>
+			<option>ì°½ì—…ì˜ˆìˆ í•™ë¶€</option>
+			<option>êµìœ¡í•™ê³¼</option>
+			<option>ìœ ì•„êµìœ¡ê³¼</option>
+			<option>êµ­ì–´êµìœ¡ê³¼</option>
+			<option>ì¼ì–´êµìœ¡ê³¼</option>
+			<option>ì˜ì–´êµìœ¡ê³¼</option>
+			<option>ì—­ì‚¬êµìœ¡ê³¼</option>
+			<option>ìˆ˜í•™êµìœ¡ê³¼</option>
+			<option>ì»´í“¨í„°êµìœ¡ê³¼</option>
+			<option>ì°½ì¡°ê³µì—°ì˜ˆìˆ í•™ë¶€ ìŒì•…ì „ê³µ</option>
+			<option>ì°½ì¡°ê³µì—°ì˜ˆìˆ í•™ë¶€ ë¬´ìš©ì „ê³µ</option>
+			<option>í•­ê³µí•™ë¶€ í•­ê³µìš´í•­í•™ì „ê³µ</option>
+			<option>í•­ê³µí•™ë¶€ í•­ê³µì •ë¹„í•™ì „ê³µ</option>
+			<option>í•­ê³µí•™ë¶€ í•­ê³µì„œë¹„ìŠ¤í•™ì „ê³µ</option>
+			<option>êµì–‘</option>
+			<option>êµì§</option>
+			<option>ê¸°ì—…ê²½ì˜í•™ê³¼</option>
+			<option>ë·°í‹°ë¹„ì¦ˆë‹ˆìŠ¤í•™ê³¼</option>
+			<option>ì—ë„ˆì§€ê´€ë¦¬í•™ê³¼</option>
+			<option>ì™¸êµ­ì¸ìœ í•™ìƒ</option>
 		</select>
 		</td>
     	</tr>
     	<tr>
-    	<th>¾ÆÀÌµğ</th>
+    	<th>ì•„ì´ë””</th>
     	<td>
-    		<input type="text" id="id" >
+    		<input type="text" id="id" class="textbox" >
     	</td>
     	</tr>
     	<tr>
-    	<th>ºñ¹Ğ¹øÈ£</th>
+    	<th>ë¹„ë°€ë²ˆí˜¸</th>
     	<td>
-    		<input type="password">
+    		<input type="password" class="textbox">
     	</td>
     	</tr>	
     	<tr>
-    	<th>ºñ¹Ğ¹øÈ£ È®ÀÎ</th>
+    	<th>ë¹„ë°€ë²ˆí˜¸ í™•ì¸</th>
     	<td>
-    		<input type="password">
+    		<input type="password" class="textbox">
     	</td>
     	</tr>	
     	<tr>
-    	<th>´Ğ³×ÀÓ</th>
+    	<th>ë‹‰ë„¤ì„</th>
     	<td>
-    		<input type="text">
+    		<input type="text" class="textbox">
     	</td>
     	</tr>
     	<tr>
-    	<th>ÀÌ¸ŞÀÏ</th>
+    	<th>ì´ë©”ì¼</th>
     	<td>
-    		<input type="email">
-    		<input type="button" value="ÀÌ¸ŞÀÏ ÀÎÁõ"> 
+    		<input type="email" class="textbox" placeholder="ì´ë©”ì¼ ì…ë ¥">
     	</td>
+    	</tr>
+    	<tr >
+    	<td>
+    		<input type="button" value="ì´ë©”ì¼ ì¸ì¦" class="emailbtn" >
+    		<input type="text" class="emailbox" placeholder="ì¸ì¦ë²ˆí˜¸ ì…ë ¥">
+    	</td>	     
     	</tr>	 	    	 
     </table>
-       	<a href="index.jsp>"><input type="button" value="È¸¿ø°¡ÀÔ" class="join_button"> </a>
+       	<a href="index.jsp>"><input type="button" value="íšŒì›ê°€ì…" onclick="addInput()" class="join_button"> </a>
     
     </fieldset>
   </form>
     </div>	
-	<footer align="center">
-		201795025 ±èÀ¯Áø / 201795081 Á¤ÁÖ°æ
+	<footer class="footer" align="center">
+		201795025 ê¹€ìœ ì§„ / 201795081 ì •ì£¼ê²½
 	</footer>
+	<script>
+	function addInput() {
+		  arrInput.push(arrInput.length);
+		  arrInputValue.push("");
+		  display();
+		}
+	</script>
 </body>
 </html>	
