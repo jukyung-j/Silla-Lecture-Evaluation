@@ -198,7 +198,7 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC";
+				String sql = "SELECT rownum, e.lec_name, e.p_name, e.dept, e.star, e.content,e.todate FROM (SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC) e";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1,lec_name);
 				stmt.setString(2, p_name);
@@ -208,6 +208,7 @@ public abstract class SillaDao {
 					lectureList = new ArrayList<LectureDO>();
 					while(rs.next()) {
 						LectureDO lecture = new LectureDO();
+						lecture.setIndex(rs.getInt("rownum"));
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
@@ -225,12 +226,38 @@ public abstract class SillaDao {
 			}
 			return lectureList;
 		}
+		public double avg_star(String lec_name, String p_name) throws SQLException{
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			double result = 0;
+			try {						
+				String sql="SELECT AVG(star) FROM eval WHERE lec_name = ? AND p_name=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1,lec_name);
+				stmt.setString(2, p_name);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					result = rs.getDouble("AVG(star)");
+				}
+				
+			}catch(SQLException e) {
+				throw e;
+			} finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();  
+				disconnectDB();
+			}
+			return result;
+		}
 		public int insert_eval(LectureDO lecture) throws SQLException {
 			connectDB();
 			
 			int result = 0;
 			ResultSet rs = null;
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 			String ss=sdf.format(new java.util.Date());
 			Timestamp time= Timestamp.valueOf(ss);
 			PreparedStatement stmt = null;

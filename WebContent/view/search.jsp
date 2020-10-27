@@ -110,6 +110,7 @@
 							<td>${lec_list.p_name}</td>
 						</tr>
 					</table>
+					<br>
 					</div>
 			</c:forEach>
 			
