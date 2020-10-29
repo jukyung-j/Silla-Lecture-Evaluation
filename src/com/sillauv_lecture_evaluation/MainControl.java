@@ -96,8 +96,10 @@ public class MainControl extends HttpServlet {
 				viewName="/view/search.jsp";
 			}
 			else if(action.equals("register")) {	// 강의가 없으면 강의 등록
-				lecture.setLec_name(request.getParameter("lec_name"));
-				lecture.setP_name(request.getParameter("p_name"));
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				lecture.setLec_name(lec_name);
+				lecture.setP_name(p_name);
 				lecture.setDept(request.getParameter("dept"));
 			
 				try {
@@ -106,8 +108,8 @@ public class MainControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				viewName="/view/main.jsp";
+				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
+				viewName="redirect:/lecture-evaluation/main?action=search&search_id="+lec_name;
 			}
 			else if(action.equals("add_eval")) {
 				String lec_name = request.getParameter("lec_name");
