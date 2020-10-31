@@ -127,10 +127,18 @@
 			alert("아이디나 비밀번호를 다시 입력해주세요.");
 		</script>
 	</c:if> 
+	<c:if test="${cookie.nickCookie.value eq '관리자'}">
+			<script>
+				location.href="${pageContext.request.contextPath}/lecture-evaluation/admin";
+	
+			</script>
+	</c:if>	
 	<c:if test="${cookie.loginCookie.value != null}">
+		
 		<script>
 			location.href="${pageContext.request.contextPath}/lecture-evaluation/main";
 		</script>
-	</c:if>
+	</c:if>	
+	
 </body>
 </html>

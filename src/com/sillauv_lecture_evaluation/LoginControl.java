@@ -96,6 +96,9 @@ public class LoginControl extends HttpServlet {
 				            response.addCookie(ncookie);
 				            response.addCookie(dcookie);
 							viewName="redirect:/lecture-evaluation/main";
+							if(member.getId().equals("admin")) {
+				            	viewName="redirect:/lecture-evaluation/admin";
+				            }
 						}
 						else {		// 비밀번호 실패
 							message = false;
