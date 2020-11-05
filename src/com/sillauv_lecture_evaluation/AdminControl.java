@@ -1,6 +1,8 @@
 package com.sillauv_lecture_evaluation;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,10 +43,25 @@ public class AdminControl extends HttpServlet {
 		if(pathInfo == null) {
 			Cookie[] cookies = request.getCookies();
 			String nick = cookies[2].getValue();
-			if(nick.equals("관리자"))
-				viewName="/view/admin.jsp";
-			else
+			if(nick.equals("관리자")) {
+				List<LectureDO> admin_eval = null;
+				try {
+					admin_eval = dao.Search_admin();	// 모든 내용들 출력
+					request.setAttribute("admin_eval", admin_eval);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					viewName="/view/admin.jsp";
+			}
+			else 
 				viewName="redirect:/lecture-evaluation/main";
+		}
+		if(action!=null) {
+			if(action.equals("search")) {
+				
+				viewName="/view/search.jsp";
+			}
 		}
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {

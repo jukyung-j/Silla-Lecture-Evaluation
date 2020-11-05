@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 
 public abstract class SillaDao {
@@ -142,7 +140,8 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
+				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate "
+						+ "from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, dept);
 				rs = stmt.executeQuery();
@@ -198,7 +197,8 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT rownum, e.lec_name, e.p_name, e.dept, e.star, e.content,e.todate FROM (SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC) e";
+				String sql = "SELECT * "
+						+ "FROM (SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC) e";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1,lec_name);
 				stmt.setString(2, p_name);
@@ -208,7 +208,6 @@ public abstract class SillaDao {
 					lectureList = new ArrayList<LectureDO>();
 					while(rs.next()) {
 						LectureDO lecture = new LectureDO();
-						lecture.setIndex(rs.getInt("rownum"));
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
@@ -269,7 +268,7 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				rs.next();
 				dept = rs.getString("dept");
-				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate) values (?,?,?,?,?,?)";
+				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate,idx) values (?,?,?,?,?,?,(SELECT NVL(MAX(idx)+1,1) FROM eval))";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, lecture.getLec_name());
 				stmt.setString(2, lecture.getP_name());
@@ -286,5 +285,57 @@ public abstract class SillaDao {
 			}
 			return result;
 		}
+		public List<LectureDO> Search_admin() throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM eval ORDER BY idx DESC";
+				stmt = con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setIdx(rs.getInt("idx"));
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setDept(rs.getString("dept"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setTodate(rs.getString("todate"));
+						
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+//		public int updateAdmin(LectureDO lecture,int index) throws SQLException {
+//			connectDB();
+//			int result = 0;
+//			Statement stmt = null;
+//			try {
+//				stmt = con.createStatement();
+//				String sql=String.format("update eval set title='%s', writer='%s', price=%d where code='%s'",
+//						goods.getTitle(),goods.getWriter(),goods.getPrice(),goods.getCode());
+//				result = stmt.executeUpdate(sql);	
+//			} catch(SQLException e) {
+//				throw e;
+//			}finally {
+//				if(stmt != null) stmt.close();
+//				disconnectDB();
+//			}
+//			return result;
+//		}
 
 }

@@ -96,7 +96,7 @@ public class LoginControl extends HttpServlet {
 				            response.addCookie(ncookie);
 				            response.addCookie(dcookie);
 							viewName="redirect:/lecture-evaluation/main";
-							if(member.getId().equals("admin")) {
+							if(member.getId().equals("admin")) {		// 관리자 로그인
 				            	viewName="redirect:/lecture-evaluation/admin";
 				            }
 						}

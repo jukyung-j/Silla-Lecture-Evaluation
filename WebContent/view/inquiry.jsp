@@ -21,9 +21,6 @@
 		<c:forEach var="eval" items="${eval_list}" >
 			<table border="1">
 				<tr>
-					<td>${eval.index}.</td>
-				</tr>
-				<tr>
 					<td>별점:${eval.star}</td>
 				</tr>
 				<tr>
