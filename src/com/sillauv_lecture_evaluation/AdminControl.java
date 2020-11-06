@@ -38,6 +38,7 @@ public class AdminControl extends HttpServlet {
 		String action = request.getParameter("action");
 		String viewName = null;
 		MemberDO member = new MemberDO(); 
+		LectureDO lecture = new LectureDO();
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
 		
 		if(pathInfo == null) {
@@ -59,8 +60,57 @@ public class AdminControl extends HttpServlet {
 		}
 		if(action!=null) {
 			if(action.equals("search")) {
-				
+				String search_id = request.getParameter("search_id");
+				List<LectureDO> lectureList = null;
+				try {
+					lectureList = dao.Search(search_id);
+					session.setAttribute("lectureList", lectureList);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				viewName="/view/search.jsp";
+			}
+			else if(action.equals("update_form")) {
+				int idx = Integer.parseInt(request.getParameter("idx"));
+				lecture = null;
+				
+				try {
+					lecture = dao.SearchIdx(idx);
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				request.setAttribute("lecture", lecture);
+				viewName="/view/update_form.jsp";
+				
+			}
+			else if(action.equals("update")) {
+				lecture.setIdx(Integer.parseInt(request.getParameter("idx")));
+				lecture.setLec_name(request.getParameter("lec_name"));
+				lecture.setP_name(request.getParameter("p_name"));
+				lecture.setStar(Integer.parseInt(request.getParameter("star")));
+				lecture.setContent(request.getParameter("content"));
+				
+				try {
+					dao.updateAdmin(lecture);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="redirect:/lecture-evaluation/admin";
+			}
+			else if(action.equals("delete")) {
+				int idx = Integer.parseInt(request.getParameter("idx"));
+				
+				try {
+					dao.delete(idx);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="redirect:/lecture-evaluation/admin";
 			}
 		}
 		if(viewName != null) {

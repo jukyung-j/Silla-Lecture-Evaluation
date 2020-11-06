@@ -14,8 +14,6 @@ public class LectureDO {
 		
 	}
 	
-	
-
 	public LectureDO(int idx,String lec_name, String p_name, int star, String dept, String todate, String content) {
 		super();
 		this.idx = idx;

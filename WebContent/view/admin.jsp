@@ -93,44 +93,50 @@
 		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
 	</form>
-	<c:forEach var="list" items="${admin_eval}" >
-	
-					<a href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update_form&idx=${list.idx}'>
-						수정</a>
-					<a href='#' onclick='confirmAndDelete(
-						 "${list.idx}","${list.lec_name}");'>삭제</a>
-						
-					<table border="1">
-						<tr>
-							<td>${list.idx}번</td>
-						</tr>
-						<tr>
-							<td>학과:${list.dept}</td>
-						</tr>
-						<tr>
-							<td>강의명:${list.lec_name}</td>
-						</tr>
-						<tr>
-							<td>교수명:${list.p_name}</td>
-						</tr>
-						<tr>
-							<td>별점:${list.star}</td>
-						</tr>
-						<tr>
-							<td>내용:${list.content}</td>
-						</tr>
-						<tr>
-							<td>날짜:${list.todate}</td>
-						</tr>
-					</table>
+	<form id="list_form" method="POST">
+		<c:forEach var="list" items="${admin_eval}" >
+				<a href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update_form&idx=${list.idx}'>
+					수정</a>
+				<a href='#' onclick='confirmAndDelete(
+					 "${list.idx}","${list.lec_name}");'>삭제</a>
+					
+				<table border="1">
+					<tr>
+						<td>${list.idx}번</td>
+					</tr>
+					<tr>
+						<td>학과:${list.dept}</td>
+					</tr>
+					<tr>
+						<td>강의명:${list.lec_name}</td>
+					</tr>
+					<tr>
+						<td>교수명:${list.p_name}</td>
+					</tr>
+					<tr>
+						<td>별점:${list.star}</td>
+					</tr>
+					<tr>
+						<td>내용:${list.content}</td>
+					</tr>
+					<tr>
+						<td>날짜:${list.todate}</td>
+					</tr>
+				</table>
 					<br>
-			</c:forEach>
-			
+				</c:forEach>
+			</form>
 			</main>
 	<footer align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
 	<script>
-	</script>
+	function confirmAndDelete(idx, title){
+		let result = confirm('"'+title+'" 강의를 정말로 삭제하시겠습니까?');
+		if(result){
+			location.href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=delete&idx=' + idx;
+		}
+	}
+</script>
 </body>
 </html>

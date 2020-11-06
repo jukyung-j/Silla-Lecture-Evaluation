@@ -320,22 +320,79 @@ public abstract class SillaDao {
 			}
 			return lectureList;
 		}
-//		public int updateAdmin(LectureDO lecture,int index) throws SQLException {
-//			connectDB();
-//			int result = 0;
-//			Statement stmt = null;
-//			try {
-//				stmt = con.createStatement();
-//				String sql=String.format("update eval set title='%s', writer='%s', price=%d where code='%s'",
-//						goods.getTitle(),goods.getWriter(),goods.getPrice(),goods.getCode());
-//				result = stmt.executeUpdate(sql);	
-//			} catch(SQLException e) {
-//				throw e;
-//			}finally {
-//				if(stmt != null) stmt.close();
-//				disconnectDB();
-//			}
-//			return result;
-//		}
-
+		public LectureDO SearchIdx(int idx) throws SQLException {
+			LectureDO lecture = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM eval WHERE idx = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idx);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					lecture = new LectureDO();
+					lecture.setIdx(rs.getInt("idx"));
+					lecture.setLec_name(rs.getString("lec_name"));
+					lecture.setP_name(rs.getString("p_name"));
+					lecture.setStar(rs.getInt("star"));
+					lecture.setContent(rs.getString("content"));
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lecture;
+		}
+		public int updateAdmin(LectureDO lecture) throws SQLException {
+			connectDB();
+			int result = 0;
+			PreparedStatement stmt = null;
+			try {
+				String sql="update eval set lec_name=?, p_name=?, star=?, content=? where idx=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				stmt.setInt(3, lecture.getStar());
+				stmt.setString(4, lecture.getContent());
+				stmt.setInt(5, lecture.getIdx());
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
+		}
+		public int delete(int idx) throws  SQLException {
+			connectDB();
+			int result = 0;
+			LectureDO lecture = new LectureDO();
+			PreparedStatement stmt = null;
+			try {
+				
+				String sql="DELETE FROM eval WHERE idx=?";						
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idx);
+				result =stmt.executeUpdate();
+				
+				// idx값 업데이트하기
+				sql="UPDATE eval SET idx=rownum";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			
+			return result;
+		}
 }
