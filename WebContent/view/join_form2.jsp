@@ -24,19 +24,18 @@
 		<label for="user_pw2">비밀번호 확인</label>
 			<input type="password" id="user_pw2" required><br>
 			<div id="pw2_check"></div>
-		학과<select name="dept" id="dept">
-			<option value=""></option>
-			<option value="컴퓨터소프트웨어공학부">컴퓨터소프트웨어공학부</option>
-		</select><br>
+			
+	학과<c:import url="http://localhost:8080/sillauv/view/dept.jsp" />
+			
+		<br>
 		<label for="user_email">이메일</label>
 			<input type="text" name="email" id="user_email" value="@sillain.ac.kr" required /> 
+			<a href="http://outlook.com/sillain.ac.kr" target="_blank">이메일</a>
 			<input type="button" value="인증번호 전송" id="check_mail" /><br>
 			<input type="text" name="verifi" id="e_code" ><input type="button" value="확인" id="code_btn"><br>
 			<div id="code_check"></div>
-		<input type="submit" value="회원가입" id="reg_submit" /><br>
-	</form>
+		<input type="submit" value="회원가입" id="reg_submit" ></form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 
 <script src="${pageContext.request.contextPath}/js/JoinScript.js"> </script>
 </body>
 </html>

@@ -59,6 +59,17 @@
 		padding-left:10px;
   		
 	}
+	.out{
+		margin-left:90%;
+		margin-top:0.5%;
+		font-size:20px;
+	}
+	.outbox{
+		margin-left:20%;
+		width:100px;
+		height:40px;
+		border-radius:10%;
+	}
 	.footer{
 		background: gray;
 		position:relative;
@@ -80,9 +91,16 @@
 		<h1>신라대학교 강의 평가</h1> 
 	</header>
 <main>
-	<div>
-		<input type="button" class="" value="로그아웃">
-	</div>
+	<table class="out">
+		<tr>
+			<td>
+				닉네임
+			</td>
+			<td>
+				<input type="button" class="outbox" value="로그아웃">
+			</td>
+		</tr>
+	</table>
 	<nav>
 		<div class="search">
 		<input type="text" class="searchbox" placeholder="과목명 또는 교수명 입력" style=  />
