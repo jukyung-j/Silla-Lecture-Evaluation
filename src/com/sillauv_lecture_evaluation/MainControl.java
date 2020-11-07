@@ -3,12 +3,12 @@ package com.sillauv_lecture_evaluation;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,16 +45,18 @@ public class MainControl extends HttpServlet {
 		
 		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
 			List<LectureDO> deptlist = null;
-			Cookie[] cookies = request.getCookies();
-			String dept = cookies[3].getValue();
+			String dept = (String) session.getAttribute("user_dept");
+			if(dept!=null) {
 			try {					// 해당학과의 최신글 조회
-				deptlist = dao.Search_dept(dept);
-				request.setAttribute("deptlist", deptlist);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					deptlist = dao.Search_dept(dept);
+					request.setAttribute("deptlist", deptlist);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="/view/main.jsp";
 			}
-			viewName="/view/main.jsp";
+				
 		}else {
 
 			if(pathInfo.equals("/register_form")) {
@@ -80,8 +82,6 @@ public class MainControl extends HttpServlet {
 				
 			}
 		}
-		
-		
 		if(action!=null) {
 			if(action.equals("search")) {		// 강의명이나 교수명 검색
 				String search_id = request.getParameter("search_id");

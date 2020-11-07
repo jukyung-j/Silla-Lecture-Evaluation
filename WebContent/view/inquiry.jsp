@@ -33,10 +33,10 @@
 			<br>
 		</c:forEach>
 	</c:if>
-	<c:if test="${cookie.nickCookie.value eq '관리자'}">
+	<c:if test="${nick eq '관리자'}">
 		<button id="btn" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/admin'">관리자 메인 페이지 가기</button>
 	</c:if>
-	<c:if test="${cookie.nickCookie.value != '관리자'}">
+	<c:if test="${nick != '관리자'}">
 		<button id="btn" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/main'">메인 페이지 가기</button>
 	</c:if>
 </body>

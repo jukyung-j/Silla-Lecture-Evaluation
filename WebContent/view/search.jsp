@@ -84,7 +84,7 @@
 		<h2>검색된 페이지</h2>
 	</header>
 	<main>
-	${cookie.nickCookie.value }님
+	${nick}님
 	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
 	<nav>
 		<div class="serach">
@@ -122,14 +122,14 @@
 	</footer>
 		<script>	
 		function inquiery(lec_name,p_name){
-			if(${cookie.loginCookie.value!=null}){
+			if(${nick!=null}){
 				location.href="${pageContext.request.contextPath}/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
 			}
 			else{
 				alert("로그인해주세요");
 			}
 		}
-	</script>
+		</script>
 	
 	
 </body>

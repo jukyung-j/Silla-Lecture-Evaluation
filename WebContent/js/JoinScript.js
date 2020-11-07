@@ -62,9 +62,10 @@ window.onload = function(){
 					}
 				});
 				
-			}, error : function(){
-				console.log("메일실패");
-			}
+			}, error:function(){
+					console.log("중복체크");
+		       }
+
 		});
 	}
 	

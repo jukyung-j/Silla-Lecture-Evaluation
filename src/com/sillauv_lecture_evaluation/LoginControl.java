@@ -58,7 +58,7 @@ public class LoginControl extends HttpServlet {
 				viewName = "/view/index.jsp";
 			}
 			else if(pathInfo.equals("/join_form")) {
-				viewName="/view/join_form2.jsp";
+				viewName="/view/join_form.jsp";
 			}
 			else if(pathInfo.equals("/mailsend")) {
 				MailControl mail = new MailControl();
@@ -82,19 +82,9 @@ public class LoginControl extends HttpServlet {
 					if(member != null) {
 						if(member.getPwd().equals(pwd)) {	// 로그인 성공
 							message = true;
-							Cookie cookie = new Cookie("loginCookie", session.getId());
-							Cookie ncookie = new Cookie("nickCookie",member.getNickname()); 
-							Cookie dcookie = new Cookie("deptCookie",member.getDept());
+							session.setAttribute("nick", member.getNickname());
+							session.setAttribute("user_dept", member.getDept());
 							request.setAttribute("message", message);
-							cookie.setPath("/");
-				            cookie.setMaxAge(60*60*24);// 단위는 (초)임으로 1일정도로 유효시간을 설정해 준다.
-				            ncookie.setPath("/");
-				            ncookie.setMaxAge(60*60*24);
-				            dcookie.setPath("/");
-				            dcookie.setMaxAge(60*60*24);
-				            response.addCookie(cookie);// 쿠키를 적용해 준다.
-				            response.addCookie(ncookie);
-				            response.addCookie(dcookie);
 							viewName="redirect:/lecture-evaluation/main";
 							if(member.getId().equals("admin")) {		// 관리자 로그인
 				            	viewName="redirect:/lecture-evaluation/admin";

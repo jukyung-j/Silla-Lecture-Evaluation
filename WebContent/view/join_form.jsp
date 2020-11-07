@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width">
 	<title>신라대학교 강의 평가</title>
 	
 <style>
 	header{
 		position: static;
- 		top: 0;
-  		left: 0;
-  		right: 0;
- 		height: 5%;
-  		padding: 1rem;
-  		color: white;
-  		background: MediumSeaGreen;
-  		font-weight: bold;
-  		font-size:25px;
-  		
+		top: 0;
+ 		left: 0;
+ 		right: 0;
+		height: 5%;
+ 		padding: 1rem;
+ 		color: white;
+ 		background: MediumSeaGreen;
+ 		font-weight: bold;
+ 		font-size:25px;
+ 		
 	}
 	h1{
 		text-align:center;
@@ -28,9 +29,10 @@
 		background-color:#EAEAEA;
 		background-clip:content-box;
 	}
+
 	.icon{
-		float:left; 
-		margin-top:15%; 
+		float:left;
+		margin-top:15%;
 		margin-left:15%;
 		clear:both;
 		margin-right:1%;
@@ -84,17 +86,17 @@
 		outline:none;
 	}
 	.emailbtn{
-		margin-left:100%;
-		width:100px;
+		/* margin-left:100%;
+		width:100px; */
 	}
 	.emailbox{
-		border-right:none;
+		/* border-right:none;
 		border-top:none;
 		border-left:none;
 		background:#EAEAEA;
 		width:100px;
 		margin-left : 160%;
-		margin-top:-5%;
+		margin-top:-5%; */
 	}
 	
 	
@@ -120,7 +122,7 @@
 			font-family:고딕;
 		}
 		.textbox{
-			width:95%;
+			width:90%;
 			height:70px;
 			font-size:25px;
 			margin-left:6%;
@@ -161,126 +163,86 @@
 	}
 }
 	</style>
-
+​
 </head>
 <body>
 	<header>
-		<h1>신라대학교 강의 평가</h1> 
+		<h1>신라대학교 강의 평가</h1>
 	</header>
 	<img src="../img/sillalogo.png" class="icon" width="250" height="250">
 	<div>
-	<form>
+	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=join' method="POST" >
 	<fieldset class="join">
-      <legend align="center"><h2>회원 가입</h2></legend>
-    <table class="table">
-    	<tr>
-    	<th>이름</th>
-    	<td>
-    		<input type="text" class="textbox">
-    	</td>
-    	</tr>
-    	<tr>
-    	<th>학과</th>
-    	<td><select class="textbox"	>
-    		<option>학과 선택</option>
-    		<option>문헌정보학과</option>
-			<option>경영학부</option>
-			<option>회계세무학과</option>
-			<option>광고홍보학과</option>
-			<option>국제관광경영학부</option>
-			<option>무역경제학부 무역물류학전공</option>
-			<option>무역경제학부 경제금육학전공</option>
-			<option>간호학과</option>
-			<option>물리치료학과</option>
-			<option>치위생학과</option>
-			<option>바이오산업학부</option>
-			<option>생명과학과</option>
-			<option>식품영양학과</option>
-			<option>웰빙체육학부</option>
-			<option>공과대(공통)</option>
-			<option>MICT대(공통)</option>
-			<option>건축학부</option>
-			<option>지능형자동차공학부</option>
-			<option>컴퓨터소프트웨어공학부</option>
-			<option>스마트전기전자공학부</option>
-			<option>융합기계공학부</option>
-			<option>에너지화학공학부</option>
-			<option>신소재공학부</option>
-			<option>융합디자인학부</option>
-			<option>창업예술학부</option>
-			<option>교육학과</option>
-			<option>유아교육과</option>
-			<option>국어교육과</option>
-			<option>일어교육과</option>
-			<option>영어교육과</option>
-			<option>역사교육과</option>
-			<option>수학교육과</option>
-			<option>컴퓨터교육과</option>
-			<option>창조공연예술학부 음악전공</option>
-			<option>창조공연예술학부 무용전공</option>
-			<option>항공학부 항공운항학전공</option>
-			<option>항공학부 항공정비학전공</option>
-			<option>항공학부 항공서비스학전공</option>
-			<option>교양</option>
-			<option>교직</option>
-			<option>기업경영학과</option>
-			<option>뷰티비즈니스학과</option>
-			<option>에너지관리학과</option>
-			<option>외국인유학생</option>
-		</select>
-		</td>
-    	</tr>
-    	<tr>
-    	<th>아이디</th>
-    	<td>
-    		<input type="text" id="id" class="textbox" >
-    	</td>
-    	</tr>
-    	<tr>
-    	<th>비밀번호</th>
-    	<td>
-    		<input type="password" class="textbox">
-    	</td>
-    	</tr>	
-    	<tr>
-    	<th>비밀번호 확인</th>
-    	<td>
-    		<input type="password" class="textbox">
-    	</td>
-    	</tr>	
-    	<tr>
-    	<th>닉네임</th>
-    	<td>
-    		<input type="text" class="textbox">
-    	</td>
-    	</tr>
-    	<tr>
-    	<th>이메일</th>
-    	<td>
-    		<input type="email" class="textbox" placeholder="이메일 입력">
-    	</td>
-    	</tr>
-    	<tr >
-    	<td>
-    		<input type="button" value="이메일 인증" class="emailbtn" >
-    		<input type="text" class="emailbox" placeholder="인증번호 입력">
-    	</td>	     
-    	</tr>	 	    	 
-    </table>
-       	<a href="index.jsp>"><input type="button" value="회원가입" onclick="addInput()" class="join_button"> </a>
-    
-    </fieldset>
-  </form>
-    </div>	
+     <legend align="center"><h2>회원 가입</h2></legend>
+   <table class="table">
+   	<tr>
+   	<th>이름</th>
+   	<td>
+   		<input type="text" class="textbox" required>
+   	</td>
+   	</tr>
+   	<tr>
+   	<th>학과</th>
+   	<td>
+		<c:import url="http://localhost:8080/sillauv/view/dept.jsp"/>
+	</td>
+   	</tr>
+   	<tr>
+   	<th>아이디</th>
+   	<td>
+   		<input type="text" id="user_id" class="textbox" name="id" required><br>
+   			<span class="check_font" id="id_check"></span>
+   	</td>
+   	</tr>
+   	
+   	<tr>
+   	<th>비밀번호</th>
+   	<td>
+   		<input type="password" class="textbox" id="user_pw" name="pwd" required><br>
+   		<span id="pw_check"></span>
+   	</td>
+   	</tr>	
+   	<tr>
+   	<th>비밀번호 확인</th>
+   	<td>
+   		<input type="password" class="textbox" id="user_pw2" required><br>
+   		<span id="pw2_check"></span>
+   	</td>
+   	</tr>	
+   	<tr>
+   	<th>닉네임</th>
+   	<td>
+   		<input type="text" class="textbox" id="user_nick" name="nickname" required><br>
+   		<span id="nick_check"></span>
+   	</td>
+   	</tr>
+   	<tr>
+   	<th>이메일</th>
+   	<td>
+   		<input type="email" class="textbox" placeholder="이메일 입력" id="user_email" value="@sillain.ac.kr" required><br>
+   		&nbsp;&nbsp;<a href="http://outlook.com/sillain.ac.kr" target="_blank">이메일 접속</a>
+   	</td>
+   	</tr>
+   	<tr>
+   	<th></th>
+   	<td>
+   		<input type="button" value="이메일 인증"  id="check_mail" />
+   		<input type="text"  class="emailbox" placeholder="인증번호 입력" name="verifi" id="e_code" />
+   		<input type="button" class="emailbtn" value="확인" id="code_btn"><br>
+   		<span id="code_check"></span>
+   	</td>	    
+   	</tr>	 	    	
+   </table>
+      
+   
+   </fieldset>
+   	<input type="submit" value="회원가입"  class="join_button" id="reg_submit">
+ </form>
+   </div>	
 	<footer class="footer" align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
-	<script>
-	function addInput() {
-		  arrInput.push(arrInput.length);
-		  arrInputValue.push("");
-		  display();
-		}
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/JoinScript.js"> </script>
 </body>
 </html>	
