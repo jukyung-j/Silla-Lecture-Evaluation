@@ -2,6 +2,7 @@ package com.sillauv_lecture_evaluation;
 
 
 public class LectureDO {
+	private int idx;
 	private String lec_name;
 	private String p_name;
 	private int star;
@@ -13,8 +14,9 @@ public class LectureDO {
 		
 	}
 	
-	public LectureDO(String lec_name, String p_name, int star, String dept, String todate, String content) {
+	public LectureDO(int idx,String lec_name, String p_name, int star, String dept, String todate, String content) {
 		super();
+		this.idx = idx;
 		this.lec_name = lec_name;
 		this.p_name = p_name;
 		this.star = star;
@@ -22,7 +24,13 @@ public class LectureDO {
 		this.todate = todate;
 		this.content = content;
 	}
+	public int getIdx() {
+		return idx;
+	}
 
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getLec_name() {
 		return lec_name;
 	}

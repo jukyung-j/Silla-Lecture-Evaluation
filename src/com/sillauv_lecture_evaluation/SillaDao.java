@@ -4,13 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 
 public abstract class SillaDao {
@@ -142,7 +140,8 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
+				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate "
+						+ "from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, dept);
 				rs = stmt.executeQuery();
@@ -198,7 +197,8 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC";
+				String sql = "SELECT * "
+						+ "FROM (SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC) e";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1,lec_name);
 				stmt.setString(2, p_name);
@@ -225,12 +225,38 @@ public abstract class SillaDao {
 			}
 			return lectureList;
 		}
+		public double avg_star(String lec_name, String p_name) throws SQLException{
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			double result = 0;
+			try {						
+				String sql="SELECT AVG(star) FROM eval WHERE lec_name = ? AND p_name=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1,lec_name);
+				stmt.setString(2, p_name);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					result = rs.getDouble("AVG(star)");
+				}
+				
+			}catch(SQLException e) {
+				throw e;
+			} finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();  
+				disconnectDB();
+			}
+			return result;
+		}
 		public int insert_eval(LectureDO lecture) throws SQLException {
 			connectDB();
 			
 			int result = 0;
 			ResultSet rs = null;
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:MM:SS");
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 			String ss=sdf.format(new java.util.Date());
 			Timestamp time= Timestamp.valueOf(ss);
 			PreparedStatement stmt = null;
@@ -242,7 +268,7 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				rs.next();
 				dept = rs.getString("dept");
-				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate) values (?,?,?,?,?,?)";
+				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate,idx) values (?,?,?,?,?,?,(SELECT NVL(MAX(idx)+1,1) FROM eval))";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, lecture.getLec_name());
 				stmt.setString(2, lecture.getP_name());
@@ -259,5 +285,114 @@ public abstract class SillaDao {
 			}
 			return result;
 		}
-
+		public List<LectureDO> Search_admin() throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM eval ORDER BY idx DESC";
+				stmt = con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setIdx(rs.getInt("idx"));
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setDept(rs.getString("dept"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setTodate(rs.getString("todate"));
+						
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+		public LectureDO SearchIdx(int idx) throws SQLException {
+			LectureDO lecture = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM eval WHERE idx = ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idx);
+				rs = stmt.executeQuery();
+				
+				if(rs.next()) {
+					lecture = new LectureDO();
+					lecture.setIdx(rs.getInt("idx"));
+					lecture.setLec_name(rs.getString("lec_name"));
+					lecture.setP_name(rs.getString("p_name"));
+					lecture.setStar(rs.getInt("star"));
+					lecture.setContent(rs.getString("content"));
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lecture;
+		}
+		public int updateAdmin(LectureDO lecture) throws SQLException {
+			connectDB();
+			int result = 0;
+			PreparedStatement stmt = null;
+			try {
+				String sql="update eval set lec_name=?, p_name=?, star=?, content=? where idx=?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				stmt.setInt(3, lecture.getStar());
+				stmt.setString(4, lecture.getContent());
+				stmt.setInt(5, lecture.getIdx());
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
+		}
+		public int delete(int idx) throws  SQLException {
+			connectDB();
+			int result = 0;
+			LectureDO lecture = new LectureDO();
+			PreparedStatement stmt = null;
+			try {
+				
+				String sql="DELETE FROM eval WHERE idx=?";						
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idx);
+				result =stmt.executeUpdate();
+				
+				// idx값 업데이트하기
+				sql="UPDATE eval SET idx=rownum";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			
+			return result;
+		}
 }

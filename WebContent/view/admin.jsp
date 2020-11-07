@@ -4,9 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>신라대학교 강의 평가</title>
-	
+<meta charset="UTF-8">
+<title>관리자 페이지</title>
 <style>
 	header{
 		position: static;
@@ -79,13 +78,14 @@
 </style>
 </head>
 <body>
+	<h1>관리자 페이지</h1>
 	<header>
 		<h1>신라대학교 강의 평가</h1> 
-		<h2>검색된 페이지</h2>
+		<h2>로그인 된 페이지</h2>
 	</header>
 	<main>
 	${cookie.nickCookie.value }님
-	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
+	<form action='${pageContext.request.contextPath}/lecture-evaluation/admin?action=search' method="POST">
 	<nav>
 		<div class="serach">
 			<input type="text" name="search_id" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
@@ -93,44 +93,50 @@
 		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
 	</form>
-		<c:if test="${lectureList==null }" >
-			등록된 글이 없습니다.
-			
-		</c:if>
-		<button id="register" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/main/register_form'" >새로 만들기</button>
-		<c:if test="${lectureList!=null }">
-			
-				<c:forEach var="lec_list" items="${lectureList}" >
-					<div onclick="inquiery('${lec_list.lec_name}','${lec_list.p_name }');">
-					<table border="1">
-						<tr>
-							<td>${lec_list.lec_name}</td>
-						</tr>
-						<tr>
-							<td>${lec_list.p_name}</td>
-						</tr>
-					</table>
+	<form id="list_form" method="POST">
+		<c:forEach var="list" items="${admin_eval}" >
+				<a href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update_form&idx=${list.idx}'>
+					수정</a>
+				<a href='#' onclick='confirmAndDelete(
+					 "${list.idx}","${list.lec_name}");'>삭제</a>
+					
+				<table border="1">
+					<tr>
+						<td>${list.idx}번</td>
+					</tr>
+					<tr>
+						<td>학과:${list.dept}</td>
+					</tr>
+					<tr>
+						<td>강의명:${list.lec_name}</td>
+					</tr>
+					<tr>
+						<td>교수명:${list.p_name}</td>
+					</tr>
+					<tr>
+						<td>별점:${list.star}</td>
+					</tr>
+					<tr>
+						<td>내용:${list.content}</td>
+					</tr>
+					<tr>
+						<td>날짜:${list.todate}</td>
+					</tr>
+				</table>
 					<br>
-					</div>
-			</c:forEach>
-			
-		</c:if>
-	</main>
-	
+				</c:forEach>
+			</form>
+			</main>
 	<footer align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>
-		<script>	
-		function inquiery(lec_name,p_name){
-			if(${cookie.loginCookie.value!=null}){
-				location.href="${pageContext.request.contextPath}/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
-			}
-			else{
-				alert("로그인해주세요");
-			}
+	<script>
+	function confirmAndDelete(idx, title){
+		let result = confirm('"'+title+'" 강의를 정말로 삭제하시겠습니까?');
+		if(result){
+			location.href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=delete&idx=' + idx;
 		}
-	</script>
-	
-	
+	}
+</script>
 </body>
 </html>

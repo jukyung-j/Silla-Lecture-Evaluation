@@ -1,9 +1,8 @@
 package com.sillauv_lecture_evaluation;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -64,10 +63,13 @@ public class MainControl extends HttpServlet {
 			else if(pathInfo.equals("/inquiry")) {
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
+				double avg_star;
 				List<LectureDO> eval_list = null;
 				try {
 					eval_list=dao.inquiry(lec_name, p_name);
+					avg_star = dao.avg_star(lec_name, p_name);
 					session.setAttribute("eval_list", eval_list);
+					session.setAttribute("avg_star", avg_star);
 					session.setAttribute("lec_name", lec_name);
 					session.setAttribute("p_name", p_name);
 				} catch (SQLException e) {
@@ -94,8 +96,10 @@ public class MainControl extends HttpServlet {
 				viewName="/view/search.jsp";
 			}
 			else if(action.equals("register")) {	// 강의가 없으면 강의 등록
-				lecture.setLec_name(request.getParameter("lec_name"));
-				lecture.setP_name(request.getParameter("p_name"));
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				lecture.setLec_name(lec_name);
+				lecture.setP_name(p_name);
 				lecture.setDept(request.getParameter("dept"));
 			
 				try {
@@ -104,8 +108,8 @@ public class MainControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				viewName="/view/main.jsp";
+				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
+				viewName="redirect:/lecture-evaluation/main?action=search&search_id="+lec_name;
 			}
 			else if(action.equals("add_eval")) {
 				String lec_name = request.getParameter("lec_name");
@@ -116,9 +120,10 @@ public class MainControl extends HttpServlet {
 				viewName="/view/insert_eval.jsp";
 			}
 			else if(action.equals("insert_eval")) {		// 강의 평가 저장
-				
-				lecture.setLec_name(request.getParameter("lec_name"));
-				lecture.setP_name(request.getParameter("p_name"));
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				lecture.setLec_name(lec_name);
+				lecture.setP_name(p_name);
 				lecture.setStar(Integer.parseInt(request.getParameter("star")));
 				lecture.setContent(request.getParameter("content"));
 				try {
@@ -127,7 +132,9 @@ public class MainControl extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				viewName="/view/inquiry.jsp";
+				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
+				p_name = URLEncoder.encode(p_name,"UTF-8");
+				viewName="redirect:/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
 			}
 		}
 		
