@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,19 +44,27 @@ public class MainControl extends HttpServlet {
 		LectureDO lecture = new LectureDO(); 
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
 		
+		if(dao == null) {
+			ServletContext context = getServletContext();
+			dao = new SillaDBCPDAO(
+					context.getInitParameter("dbcp_resource_name")
+			);
+			session.setAttribute("dao", dao);
+		}
+		
 		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
 			List<LectureDO> deptlist = null;
 			String dept = (String) session.getAttribute("user_dept");
-			if(dept!=null) {
-			try {					// 해당학과의 최신글 조회
-					deptlist = dao.Search_dept(dept);
-					request.setAttribute("deptlist", deptlist);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				viewName="/view/main.jsp";
-			}
+			
+				try {					// 해당학과의 최신글 조회
+						deptlist = dao.Search_dept(dept);
+						request.setAttribute("deptlist", deptlist);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					viewName="/view/main.jsp";
+				
 				
 		}else {
 
@@ -81,21 +90,21 @@ public class MainControl extends HttpServlet {
 				viewName="/view/inquiry.jsp";
 				
 			}
-		}
-		if(action!=null) {
-			if(action.equals("search")) {		// 강의명이나 교수명 검색
+			else if(pathInfo.equals("/search")) {		// 강의명이나 교수명 검색
 				String search_id = request.getParameter("search_id");
-				List<LectureDO> lectureList = null;
+				List<LectureDO> lecture_List = new ArrayList<LectureDO>();
 				try {
-					lectureList = dao.Search(search_id);
-					session.setAttribute("lectureList", lectureList);
+					lecture_List = dao.Search(search_id);
+					session.setAttribute("lectureList", lecture_List);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				viewName="/view/search.jsp";
 			}
-			else if(action.equals("register")) {	// 강의가 없으면 강의 등록
+		}
+		if(action!=null) {
+			if(action.equals("register")) {	// 강의가 없으면 강의 등록
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
 				lecture.setLec_name(lec_name);
@@ -109,7 +118,7 @@ public class MainControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
-				viewName="redirect:/lecture-evaluation/main?action=search&search_id="+lec_name;
+				viewName="redirect:/lecture-evaluation/main/search&search_id="+lec_name;
 			}
 			else if(action.equals("add_eval")) {
 				String lec_name = request.getParameter("lec_name");

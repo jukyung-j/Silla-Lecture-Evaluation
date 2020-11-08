@@ -103,7 +103,7 @@ public abstract class SillaDao {
 			return result;
 		} 
 		public List<LectureDO> Search(String name) throws SQLException {
-			ArrayList<LectureDO> lectureList = null;
+			List<LectureDO> lectureList = null;
 			connectDB();
 			PreparedStatement stmt = null;
 			ResultSet rs = null;

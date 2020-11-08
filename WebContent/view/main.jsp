@@ -103,7 +103,7 @@
 		</tr>
 	</table>
 	<nav>
-		<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
+		<form action='${pageContext.request.contextPath}/lecture-evaluation/main/search' method="POST">
 			<div class="search">
 				<input type="text" class="searchbox" placeholder="과목명 또는 교수명 입력" name="search_id"  />
 			</div>
@@ -141,10 +141,7 @@
 	</footer>
 	<script>
 		function logout(){
-			<%
-				session.invalidate();
-			%>
-			location.href="${pageContext.request.contextPath}/lecture-evaluation/index";
+			location.href="${pageContext.request.contextPath}/lecture-evaluation/index?action=logout";
 		}
 	</script>
 

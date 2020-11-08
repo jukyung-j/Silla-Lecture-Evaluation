@@ -56,6 +56,9 @@ public class LoginControl extends HttpServlet {
 		if(pathInfo != null && pathInfo.length() > 1) {
 			if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
+				if(session.getAttribute("nick")!=null) {
+					viewName = "redirect:/lecture-evaluation/main";
+				}
 			}
 			else if(pathInfo.equals("/join_form")) {
 				viewName="/view/join_form.jsp";
@@ -65,15 +68,11 @@ public class LoginControl extends HttpServlet {
 				mail.doGet(request, response);
 			}
 		}
-		else
-			viewName="/view/index.jsp";
 
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 확인
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
-				String nick;
-				String dept;
 				
 				message = true;	// 잘못된 로그인 확인
 				
@@ -148,6 +147,9 @@ public class LoginControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				viewName="redirect:/lecture-evaluation/index";
+			}
+			else if(action.equals("logout")) {
+				session.invalidate();
 			}
 			
 		}

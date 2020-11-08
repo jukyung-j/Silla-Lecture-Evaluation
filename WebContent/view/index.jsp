@@ -175,7 +175,7 @@
 	</header>
 	<main>
 	<nav>
-		<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
+		<form action='${pageContext.request.contextPath}/lecture-evaluation/main/search' method="POST">
 			<div class="search">
 			<input type="text" name="search_id" class="searchbox" placeholder="과목명 또는 교수명 입력"/>
 			</div>
@@ -183,7 +183,7 @@
 		</form>
 	</nav>
 	<div class="img">
-	<img src="../img/sillalogo.png" class="logo" width="250" height="250">
+	<img src="${pageContext.request.contextPath}/img/sillalogo.png" class="logo" width="250" height="250">
 	</div>	
 	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
     <fieldset class="login">
