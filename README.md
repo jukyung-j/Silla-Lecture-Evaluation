@@ -10,6 +10,6 @@ Servlet & JSP 를 사용.
 WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.   
 
 1.index.jsp
-![index](https://user-images.githubusercontent.com/68947314/98551653-e7afaa00-22e0-11eb-9d7d-49f2cf2aafe3.jpg)
+<img src="https://github.com/jukyung-j/Silla-Lecture-Evaluation/issues/1#issue-739050965" width="100px" height="100px"></img>
 
 
