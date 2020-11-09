@@ -18,7 +18,7 @@ WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.
 성공시 session에 값을 저장한다.
 틀리면 jsp에 message값을 request해서 alert을 띄운다.
 
-  if(action.equals("login")) {		// 로그인 확인
+  	if(action.equals("login")) {		// 로그인 확인
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
 				
@@ -55,7 +55,8 @@ WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.
 
 session에 값이 있으면 main페이지로 바로 이동
 관리자 로그인시 관리자 페이지로 이동
-  if(pathInfo.equals("/index")) {
+
+    if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
 				if(session.getAttribute("nick")!=null) {
 					viewName = "redirect:/lecture-evaluation/main";
