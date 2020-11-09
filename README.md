@@ -14,9 +14,9 @@ WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.
 
 <img src="https://user-images.githubusercontent.com/68947314/98551653-e7afaa00-22e0-11eb-9d7d-49f2cf2aafe3.jpg" width="50%" height="70%"></img>
 
-로그인 버튼을 누를시 DB에 값이 있고 비밀번호가 일치하면 로그인성공
-성공시 session에 값을 저장한다.
-틀리면 jsp에 message값을 request해서 alert을 띄운다.
+로그인 버튼을 누를시 DB에 값이 있고 비밀번호가 일치하면 로그인성공   
+성공시 session에 값을 저장한다.   
+틀리면 jsp에 message값을 보내서 alert을 띄운다.
 
   	if(action.equals("login")) {		// 로그인 확인
 				String id = request.getParameter("id");
@@ -53,8 +53,8 @@ WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.
 					e.printStackTrace();
 				}
 
-session에 값이 있으면 main페이지로 바로 이동
-관리자 로그인시 관리자 페이지로 이동
+session에 값이 있으면 main페이지로 바로 이동   
+관리자 로그인시 관리자 페이지로 이동   
 
     if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
