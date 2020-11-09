@@ -395,4 +395,30 @@ public abstract class SillaDao {
 			
 			return result;
 		}
+		public int lecture_delete(String lec_name, String p_name) throws  SQLException {
+			connectDB();
+			int result = 0;
+			LectureDO lecture = new LectureDO();
+			PreparedStatement stmt = null;
+			try {
+				
+				String sql="DELETE FROM lecture WHERE lec_name=? AND p_name = ?";						
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lec_name);
+				stmt.setString(2, p_name);
+				result =stmt.executeUpdate();
+				
+				// idx값 업데이트하기
+				sql="UPDATE eval SET idx=rownum";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			
+			return result;
+		}
 }

@@ -84,13 +84,13 @@
 		<h2>로그인 된 페이지</h2>
 	</header>
 	<main>
-	${cookie.nickCookie.value }님
+	${nick}님
 	<form action='${pageContext.request.contextPath}/lecture-evaluation/admin?action=search' method="POST">
 	<nav>
 		<div class="serach">
 			<input type="text" name="search_id" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
-		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
+		<button class="button1" type="submit"><img src="${pageContext.request.contextPath}/img/search.png" style="width:50px; height:50px;"></button>		
 	</nav>
 	</form>
 	<form id="list_form" method="POST">

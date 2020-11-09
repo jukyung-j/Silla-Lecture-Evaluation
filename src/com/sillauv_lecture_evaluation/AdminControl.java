@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -41,9 +42,16 @@ public class AdminControl extends HttpServlet {
 		LectureDO lecture = new LectureDO();
 		SillaDao dao = (SillaDao)session.getAttribute("dao");
 		
+		if(dao == null) {
+			ServletContext context = getServletContext();
+			dao = new SillaDBCPDAO(
+					context.getInitParameter("dbcp_resource_name")
+			);
+			session.setAttribute("dao", dao);
+		}
+		
 		if(pathInfo == null) {
-			Cookie[] cookies = request.getCookies();
-			String nick = cookies[2].getValue();
+			String nick = (String) session.getAttribute("nick");
 			if(nick.equals("관리자")) {
 				List<LectureDO> admin_eval = null;
 				try {
@@ -112,7 +120,21 @@ public class AdminControl extends HttpServlet {
 				}
 				viewName="redirect:/lecture-evaluation/admin";
 			}
+			else if(action.equals("lecture_delete")) {
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				
+				try {
+					dao.lecture_delete(lec_name, p_name);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="redirect:/lecture-evaluation/admin";
+			}
 		}
+		
+		
 		if(viewName != null) {
 			if(viewName.contains("redirect:")) {
 				String location = viewName.split(":")[1];
