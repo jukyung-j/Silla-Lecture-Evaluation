@@ -84,15 +84,17 @@
 		<h2>검색된 페이지</h2>
 	</header>
 	<main>
-	${cookie.nickCookie.value }님
-	<form action='${pageContext.request.contextPath}/lecture-evaluation/main?action=search' method="POST">
+	${nick}님
+	
 	<nav>
+	<form action='${pageContext.request.contextPath}/lecture-evaluation/main/search' method="POST">
 		<div class="serach">
 			<input type="text" name="search_id" placeholder="과목명 또는 교수명 입력" style="border:2px solid MediumSeaGreen; border-radius:5px; width:600px; height:30px;"  />
 		</div>
 		<button class="button1" type="submit"><img src="../img/search.png" style="width:50px; height:50px;"></button>		
-	</nav>
+	
 	</form>
+	</nav>
 		<c:if test="${lectureList==null }" >
 			등록된 글이 없습니다.
 			
@@ -122,14 +124,14 @@
 	</footer>
 		<script>	
 		function inquiery(lec_name,p_name){
-			if(${cookie.loginCookie.value!=null}){
+			if(${nick!=null}){
 				location.href="${pageContext.request.contextPath}/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
 			}
 			else{
 				alert("로그인해주세요");
 			}
 		}
-	</script>
+		</script>
 	
 	
 </body>

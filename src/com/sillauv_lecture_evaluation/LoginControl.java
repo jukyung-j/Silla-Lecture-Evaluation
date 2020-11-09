@@ -56,24 +56,23 @@ public class LoginControl extends HttpServlet {
 		if(pathInfo != null && pathInfo.length() > 1) {
 			if(pathInfo.equals("/index")) {
 				viewName = "/view/index.jsp";
+				if(session.getAttribute("nick")!=null) {
+					viewName = "redirect:/lecture-evaluation/main";
+				}
 			}
 			else if(pathInfo.equals("/join_form")) {
-				viewName="/view/join_form2.jsp";
+				viewName="/view/join_form.jsp";
 			}
 			else if(pathInfo.equals("/mailsend")) {
 				MailControl mail = new MailControl();
 				mail.doGet(request, response);
 			}
 		}
-		else
-			viewName="/view/index.jsp";
 
 		if(action != null){
 			if(action.equals("login")) {		// 로그인 확인
 				String id = request.getParameter("id");
 				String pwd = request.getParameter("pwd");
-				String nick;
-				String dept;
 				
 				message = true;	// 잘못된 로그인 확인
 				
@@ -82,19 +81,9 @@ public class LoginControl extends HttpServlet {
 					if(member != null) {
 						if(member.getPwd().equals(pwd)) {	// 로그인 성공
 							message = true;
-							Cookie cookie = new Cookie("loginCookie", session.getId());
-							Cookie ncookie = new Cookie("nickCookie",member.getNickname()); 
-							Cookie dcookie = new Cookie("deptCookie",member.getDept());
+							session.setAttribute("nick", member.getNickname());
+							session.setAttribute("user_dept", member.getDept());
 							request.setAttribute("message", message);
-							cookie.setPath("/");
-				            cookie.setMaxAge(60*60*24);// 단위는 (초)임으로 1일정도로 유효시간을 설정해 준다.
-				            ncookie.setPath("/");
-				            ncookie.setMaxAge(60*60*24);
-				            dcookie.setPath("/");
-				            dcookie.setMaxAge(60*60*24);
-				            response.addCookie(cookie);// 쿠키를 적용해 준다.
-				            response.addCookie(ncookie);
-				            response.addCookie(dcookie);
 							viewName="redirect:/lecture-evaluation/main";
 							if(member.getId().equals("admin")) {		// 관리자 로그인
 				            	viewName="redirect:/lecture-evaluation/admin";
@@ -158,6 +147,9 @@ public class LoginControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				viewName="redirect:/lecture-evaluation/index";
+			}
+			else if(action.equals("logout")) {
+				session.invalidate();
 			}
 			
 		}
