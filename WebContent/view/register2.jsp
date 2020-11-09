@@ -5,6 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8">		
 	<title>신라대학교 강의 평가 </title>
 	
 <style>
@@ -40,7 +42,7 @@
 	}
 	.register{
 		width:50%;
-		height:800px;
+		height:900px;
 		margin-left:25%;
 		margin-top:5%;
 	}
@@ -48,7 +50,6 @@
 		font-size:20px;
 		margin-left:10%;
 		border-spacing:0 10px;
-		
 	}
 	.small{
 		margin-left:5%;
@@ -85,8 +86,8 @@
 	.star-input>.input,
 	.star-input>.input>label:hover,
 	.star-input>.input>input:focus+label,
-	.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('../img/grade_img.png')no-repeat;}
-	.star-input{display:inline-block; white-space:nowrap;width:225px;height:40px;padding:25px;line-height:30px;}
+	.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('../img/grade_img.png');no-repeat;}
+	.star-input{display:inline-block; white-space:nowrap;width:225px;heigh0t:40px;padding:25px;line-height:30px;}
 	.star-input>.input{display:inline-block;width:150px;background-size:150px;height:28px;white-space:nowrap;overflow:hidden;position: relative;}
 	.star-input>.input>input{position:absolute;width:1px;height:1px;opacity:0;}
 	.star-input>.input.focus{outline:1px dotted #ddd;}
@@ -101,14 +102,55 @@
 	.star-input>.input>label[for="p4"]{width:120px;z-index:2;}
 	.star-input>.input>label[for="p5"]{width:150px;z-index:1;}
 	.star-input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
-
 	
+
 	@media(max-width:425px){
 		header{
 			width:1000px;
 			height:200px;
 			font-size:30px;
 			padding-top:20px;	
+		}
+		.out{
+			margin-left:750px;
+			margin-top:5%;
+			width:230px;
+			font-size:20px;
+		}
+		.outbox{
+			font-size:20px;
+			width:130px;
+			height:50px;
+		}
+		.register{
+			font-size:40px;
+			width:900px;
+			height:1300px;
+			margin-left:5%;
+		}
+		.re{
+			margin-left:-1%;
+			font-size:40px;
+			border-spacing:0 30px;
+		}
+		.rebutton{
+			margin-left:15%;
+			font-size:40px;
+			width:600px;
+			height:100px;
+			border-radis:30px;
+		}
+		.small{
+			width:700px;	
+			height:50px;
+			font-size:40px;
+		}
+		.big{
+			font-size:40px;
+			width:700px;
+		}
+		.star-input{
+			
 		}
 		.footer{
 			margin-top:50%;
@@ -142,14 +184,9 @@
       <legend align="center"><h2>강의평가 등록</h2></legend>
 <table class="re">
 	<tr>
-	<th> 강의명 </th>
-		<td><input type="text" class="small"></td>	
-	</tr>
-	<tr>
-	<th> 교수명 </th>
-		<td><input type="text" class="small"></td>
-	</tr>
-	<span class="star-input">
+	<th>별  점</th>
+		<td>
+		<span class="star-input">
 	<span class="input">
     	<input type="radio" name="star-input" value="1" id="p1">
     	<label for="p1">1</label>
@@ -164,9 +201,20 @@
   	</span>
   	<output for="star-input"><b>0</b>점</output>						
 	</span>
+	</td></tr>
+	<tr>
+	<th> 강의명 </th>
+		<td><input type="text" class="small"></td>	
+	</tr>
+	<tr>
+	<th> 교수명 </th>
+		<td><input type="text" class="small"></td>
+	</tr>
+	
+	
 	<tr>
 	<th>평가내용</th>
-		<td><input type="text" class="big"></td>
+		<td><textarea cols="50" rows="8" class="big"></textarea></td>
 	</tr>
 </table>
 	<input type="button" value="등록" class="rebutton">
@@ -175,8 +223,8 @@
 <footer class="footer" align="center">
 		201795025 김유진 / 201795081 정주경
 	</footer>	
-	<script src="js/jquery-1.11.3.min.js"></script>
-	<script src="js/star.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="../js/star.js"></script>
 	 
 	
 </body>

@@ -67,22 +67,27 @@
 			padding-top:20px;	
 		}
 		.logo{
-			width:100%;
-			height:100%;
+			width:130%;
+			height:130%;
 			margin-left:75%;
-			margin-top:150px;
+			margin-top:70%;
 		}	
 		h2{
-			margin-top:20%;
-			margin-left:50%;
+			width:150%;
+			margin-top:40%;
+			margin-left:65%;
+			font-size:45px;
 		}
 		.btn{
-			width:300px;
-			height:80px;
-			margin-left:88%;
+			font-size:30px;
+			width:500px;
+			height:100px;
+			margin-left:70%;
+			margin-top:50%;
+			border-radius:10px;
 		}
 		.footer{
-			margin-top:50%;
+			margin-top:100%;
 			padding-top:10%;
 			position:absoulte;
 			left:0;

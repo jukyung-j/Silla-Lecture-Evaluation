@@ -105,7 +105,6 @@
 		<div class="search">
 		<input type="text" class="searchbox" placeholder="과목명 또는 교수명 입력" style=  />
 		</div>
-		<button class="button1"><img src="../img/search.png" style="width:70px; height:70px;"></button>		
 	</nav>
 	
 	<div class="text">

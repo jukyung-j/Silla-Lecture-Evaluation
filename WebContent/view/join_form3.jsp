@@ -84,8 +84,10 @@
 		outline:none;
 	}
 	.emailbtn{
-		margin-left:100%;
-		width:100px;
+		margin-left:170%;
+		margin-top:-50%;
+		width:150px;
+		height:50px;
 	}
 	.emailbox{
 		border-right:none;
@@ -93,10 +95,8 @@
 		border-left:none;
 		background:#EAEAEA;
 		width:100px;
-		margin-left : 160%;
-		margin-top:-5%;
+		margin-left:120%;
 	}
-	
 	
 	@media(max-width:425px){
 		.icon{
@@ -260,13 +260,14 @@
     		<input type="email" class="textbox" placeholder="이메일 입력">
     	</td>
     	</tr>
-    	<tr >
-    	<td>
-    		<input type="button" value="이메일 인증" class="emailbtn" >
+    	<tr>
+    	<td>	
     		<input type="text" class="emailbox" placeholder="인증번호 입력">
-    	</td>	     
+    		<input type="button" value="이메일 인증" class="emailbtn" >
+    	</td>
     	</tr>	 	    	 
     </table>
+    
        	<a href="index.jsp>"><input type="button" value="회원가입" onclick="addInput()" class="join_button"> </a>
     
     </fieldset>
