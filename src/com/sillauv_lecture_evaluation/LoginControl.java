@@ -58,6 +58,9 @@ public class LoginControl extends HttpServlet {
 				viewName = "/view/index.jsp";
 				if(session.getAttribute("nick")!=null) {
 					viewName = "redirect:/lecture-evaluation/main";
+					if(session.getAttribute("nick").equals("관리자")) {
+						viewName="redirect:/lecture-evaluation/admin";
+					}
 				}
 			}
 			else if(pathInfo.equals("/join_form")) {
@@ -150,6 +153,7 @@ public class LoginControl extends HttpServlet {
 			}
 			else if(action.equals("logout")) {
 				session.invalidate();
+				viewName="redirect:/lecture-evaluation/index";
 			}
 			
 		}

@@ -151,6 +151,7 @@
 		<th> 교수명 </th>
 			<td><input type="text" class="small" name="p_name" value="${p_name}" readonly></td>
 		</tr>
+		
 		<span class="star-input">
 		<span class="input">
 	    	<input type="radio" name="star" value="1" id="p1" required>

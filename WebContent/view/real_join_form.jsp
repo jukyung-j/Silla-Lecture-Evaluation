@@ -212,7 +212,11 @@
    	<th>아이디</th>
    	<td>
    		<input type="text" id="user_id" class="textbox" name="id" required><br>
+<<<<<<< HEAD:WebContent/view/real_join_form.jsp
    		<span class="check_font" id="id_check"></span>
+=======
+   			<span class="textbox" id="id_check"></span>
+>>>>>>> 2218dabf27af40fe402d1237e1e49aeaf156e617:WebContent/view/join_form.jsp
    	</td>
    	</tr>
    	
@@ -220,21 +224,21 @@
    	<th>비밀번호</th>
    	<td>
    		<input type="password" class="textbox" id="user_pw" name="pwd" required><br>
-   		<span id="pw_check"></span>
+   		<span class="textbox" id="pw_check"></span>
    	</td>
    	</tr>	
    	<tr>
    	<th>비밀번호 확인</th>
    	<td>
    		<input type="password" class="textbox" id="user_pw2" required><br>
-   		<span id="pw2_check"></span>
+   		<span class="textbox" id="pw2_check"></span>
    	</td>
    	</tr>	
    	<tr>
    	<th>닉네임</th>
    	<td>
    		<input type="text" class="textbox" id="user_nick" name="nickname" required><br>
-   		<span id="nick_check"></span>
+   		<span class="textbox" id="nick_check"></span>
    	</td>
    	</tr>
    	<tr>
@@ -250,7 +254,7 @@
    	<td>
    		<input type="text"  class="emailbox" placeholder="인증번호 입력" name="verifi" id="e_code" />
    		<input type="button" class="emailbtn" value="확인" id="code_btn"><br>
-   		<span id="code_check"></span>
+   		<span class="textbox" id="code_check"></span>
    	</td>	    
    	</tr>	 	    	
    </table>

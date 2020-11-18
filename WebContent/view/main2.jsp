@@ -143,7 +143,7 @@
 				${nick}님
 			</td>
 			<td>
-				<input type="button" class="outbox" value="로그아웃" onclick="logout()">
+				<input type="button" class="outbox" value="로그아웃" onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/index?action=logout'">
 			</td>
 		</tr>
 	</table>
@@ -186,7 +186,7 @@
 	</footer>
 	<script>
 		function logout(){
-			location.href="${pageContext.request.contextPath}/lecture-evaluation/index?action=logout";
+			location.href=;
 		}
 	</script>
 

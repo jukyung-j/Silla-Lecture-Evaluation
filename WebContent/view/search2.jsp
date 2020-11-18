@@ -103,6 +103,9 @@
 		<c:if test="${lectureList!=null }">
 			
 				<c:forEach var="lec_list" items="${lectureList}" >
+					<c:if test="${nick eq '관리자'}">
+						<br><a href="#" onclick="ConfirmAndDelete('${lec_list.lec_name}','${lec_list.p_name}');">삭제</a>
+					</c:if>
 					<div onclick="inquiery('${lec_list.lec_name}','${lec_list.p_name }');">
 					<table border="1">
 						<tr>
@@ -129,6 +132,12 @@
 			}
 			else{
 				alert("로그인해주세요");
+			}
+		}
+		function ConfirmAndDelete(title, name){
+			let result = confirm('강의명:"'+title+'" 교수명:"'+name+'" 강의를 정말로 삭제하시겠습니까?');
+			if(result){
+				location.href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=lecture_delete&lec_name=' + title+'&p_name='+name;
 			}
 		}
 		</script>
