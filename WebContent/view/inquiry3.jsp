@@ -108,6 +108,7 @@
 	${lec_name}<br>
 	${p_name}<br>
 	별점 평균 : <fmt:formatNumber value="${avg_star}" type="number" /><br>
+	
 	<c:if test="${eval_list==null}">
 		<h2>등록된 강의평가가 없습니다.</h2>
 	</c:if>

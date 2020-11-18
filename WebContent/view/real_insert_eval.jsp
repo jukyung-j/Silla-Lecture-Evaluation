@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,12 +83,16 @@
 		margin-top:10%;
 		font-size:20px;
 	}
+	.star-input{
+		width:200px;
+	}
+	
 	
 	.star-input>.input,
 	.star-input>.input>label:hover,
 	.star-input>.input>input:focus+label,
-	.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('../img/grade_img.png');no-repeat;}
-	.star-input{display:inline-block; white-space:nowrap;width:225px;heigh0t:40px;padding:25px;line-height:30px;}
+	.star-input>.input>input:checked+label{display: inline-block;vertical-align:middle;background:url('../img/grade_img.png')no-repeat;background-length:200px 200px;,}
+	.star-input{display:inline-block; white-space:nowrap;width:225px;height:40px;padding:25px;line-height:30px;}
 	.star-input>.input{display:inline-block;width:150px;background-size:150px;height:28px;white-space:nowrap;overflow:hidden;position: relative;}
 	.star-input>.input>input{position:absolute;width:1px;height:1px;opacity:0;}
 	.star-input>.input.focus{outline:1px dotted #ddd;}
@@ -173,48 +178,47 @@
 	<table class="out">
 		<tr>
 			<td>
-				닉네임
+				${nick}님
 			</td>
 			<td>
-				<input type="button" class="outbox" value="로그아웃">
+				<input type="button" class="outbox" value="로그아웃" onclick="${pageContext.request.contextPath}/lecture-evaluation/index?action=logout">
 			</td>
 		</tr>
 	</table>
 	<fieldset class="register">
       <legend align="center"><h2>강의평가 등록</h2></legend>
-<table class="re">
+      <form  action='${pageContext.request.contextPath}/lecture-evaluation/main?action=insert_eval' method="POST">
+		<table class="re">
 	<tr>
 	<th>별  점</th>
 		<td>
-		<span class="star-input">
-	<span class="input">
-    	<input type="radio" name="star-input" value="1" id="p1">
-    	<label for="p1">1</label>
-    	<input type="radio" name="star-input" value="2" id="p2">
-    	<label for="p2">2</label>
-    	<input type="radio" name="star-input" value="3" id="p3">
-    	<label for="p3">3</label>
-    	<input type="radio" name="star-input" value="4" id="p4">
-    	<label for="p4">4</label>
-    	<input type="radio" name="star-input" value="5" id="p5">
-    	<label for="p5">5</label>
+		<span class="star-input" style="width:200px; height:100px; border:1px solid red;">
+			<span class="input" >
+		    	<input type="radio" name="star-input" value="1" id="p1">
+		    	<label for="p1">1</label>
+		    	<input type="radio" name="star-input" value="2" id="p2">
+		    	<label for="p2">2</label>
+		    	<input type="radio" name="star-input" value="3" id="p3">
+		    	<label for="p3">3</label>
+		    	<input type="radio" name="star-input" value="4" id="p4">
+		    	<label for="p4">4</label>
+		    	<input type="radio" name="star-input" value="5" id="p5">
+		    	<label for="p5">5</label>
   	</span>
   	<output for="star-input"><b>0</b>점</output>						
 	</span>
 	</td></tr>
 	<tr>
 	<th> 강의명 </th>
-		<td><input type="text" class="small"></td>	
+		<td><input type="text" class="small" name="lec_name" value="${lec_name}" readonly></td>	
 	</tr>
 	<tr>
 	<th> 교수명 </th>
-		<td><input type="text" class="small"></td>
-	</tr>
-	
-	
+		<td><input type="text" class="small" name="p_name" value="${p_name}" readonly></td>
+	</tr>	
 	<tr>
 	<th>평가내용</th>
-		<td><textarea cols="50" rows="8" class="big"></textarea></td>
+		<td><textarea cols="50" rows="8" class="big" name="content" required></textarea></td>
 	</tr>
 </table>
 	<input type="button" value="등록" class="rebutton">
@@ -226,6 +230,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="../js/star.js"></script>
 	 
-	
+</form>	
 </body>
 </html>
