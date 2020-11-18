@@ -3,220 +3,109 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width">
-	<title>신라대학교 강의 평가</title>
-	
-<style>
-	header{
-		position: static;
- 		top: 0;
-  		left: 0;
-  		right: 0;
- 		height: 5%;
-  		padding: 1rem;
-  		color: white;
-  		background: MediumSeaGreen;
-  		font-weight: bold;
-  		font-size:25px;
-	}
-	body{
-		background-color:#EAEAEA;
-		background-clip:content-box;
-	}
-	.search{
-		text-align : center;
-		margin-top : 3%;
-	}
-	.searchbox{
-		border:2px solid MediumSeaGreen;
-		border-radius:5px;
-		width:60%; 
-		height:50px;
-		font-size:30px;
-	}
-	.img{
-		margin-left:44%;
-		margin-top: 5%;
-	}
-	.login{
-		background : none;
-		width:400px;
-		height:300px;
-		padding-top:1%;
-		border-radius:5px;
-		margin-left:39%;
-		margin-top:5%;
-		font-size:25px;
-	}
-	h1{
-		text-align:center;
-		
-	}
-	.button1{
-		border:0;
-		outline:0;
-		position:absolute;
-		background:none;
-		margin-left:81%;
-		margin-top:-60px;
-	}
-	.table{
-		margin-left:auto;
-		margin-right:auto;
-		width:150px;
-		border-spacing: 0 20px;
-		
-	}
-	.loginbox{
-		width:300px;
-		height:30px;
-		font-size:25px;
-	}
-	.loginbutton{
-		height:30px;
-		font-size:20px;
-	}
-	.other{
-		align-text:center;
-	}
-	input{
-		outline:none;
-	}
-	a{
-		font-size:20px;
-		color : black;
-		text-decoration:none;
-	}
-	.footer{
-		background: gray;
-		position:relative;
-		left: 0;
-  		right: 0;
-		bottom:0;
-		width:100%;
-		height:40px;   	
-		padding-top:15px;
-		margin-top:10%;
-		font-size:20px;
-	}
-	
-	@media(max-width:425px){
-		header{
-			width:1000px;
-			height:200px;
-			font-size:30px;
-			padding-top:20px;	
-		}
-		.searchbox{
-			width:800px;
-			height:80px;
-			margin-left:100px;
-			margin-top:50px;
-			font-size:30px;
-		}
-		.logo{
-			width:200%;
-			height:200%;
-			margin-left:130px;
-			margin-top:150px;
-		}
-		.button1{
-			display:none;
-		}
-		.login{
-			margin-left:70px;
-			margin-top:200px;
-			width:800px;
-			height: 700px;
-			font-size:30px;
-		}
-		.loginbox{
-			margin-left:0px;
-			width:600px;
-			height:80px;
-			font-size:30px;
-		}
-		.table{
-			padding-top: 50px;
-			border-spacing: 0 50px;
-			font-size:100%;
-		}
-		.loginbutton{
-			width:300px;
-			height:80px;
-			font-size:30px;
-			border:3px solid MediumSeaGreen;
-		}
-		a{
-			margin-bottom:50%;
-			font-size:30px;
-			align-text:center;
-		}
-		.footer{
-			margin-top:30%;
-			padding-top:10%;
-			position:absoulte;
-			left:0;
-			right:0;
-			bottom:0;
-			width:1000px;
-			height:80px;
-			font-size:25px;
-		}	.
-	}
-
-</style>
-</head>
-<body>
-	<header>
-		<h1>신라대학교 강의 평가</h1> 
-	</header>
-	<main>
-	<nav>
-		<form action='${pageContext.request.contextPath}/lecture-evaluation/main/search' method="POST">
-			<div class="search">
-			<input type="text" name="search_id" class="searchbox" placeholder="과목명 또는 교수명 입력"/>
-			</div>
-			<button type="submit" class="button1"></button>		
-		</form>
-	</nav>
-	<div class="img">
-	<img src="${pageContext.request.contextPath}/img/sillalogo.png" class="logo" width="250" height="250">
-	</div>	
-	<form action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
-    <fieldset class="login">
-      <legend align="center" >회원 로그인</legend>     
-      <table class="table">
-     <tr>
-     	<td><input type="text" name="id" class="loginbox" placeholder="ID"></td>
-     </tr>
-   	 <tr> 
-    	 <td><input type="password" name="pwd" class="loginbox" placeholder="Password" /></td>
-    </tr>	 
-    <tr>
-    	<td><input type="submit" class="loginbutton" value="로그인" style="width:100%; background:MediumSeaGreen; border-radius:5px; " ></td>
-    </tr>
-     </table>
-      <div>
-        <div class="other" align="center">
-       <ol>
-       	 <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form'>회원가입</a>
-       </ol>
-       </div>
-      </div>
-    </fieldset>
-  </form>
-	</main>
-	<footer class="footer" align="center">
-		201795025 김유진 / 201795081 정주경
-	</footer>
-	<c:if test="${message==false}" >
-		<script>
-			alert("아이디나 비밀번호를 다시 입력해주세요.");
-		</script>
-	</c:if> 
-	
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>신라대 강의평가</title>
+        <!-- Favicon-->
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <span class="navbar-brand js-scroll-trigger">신라대 강의평가</span>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <!-- Masthead Heading-->
+                <form action='${pageContext.request.contextPath}/lecture-evaluation/main/search' method="POST">
+					<div class="search">
+					<input type="text" name="search_id" class="masthead-subheading font-weight-light mb-0" placeholder="과목명 또는 교수명 입력"/>
+					<button type="submit" class="btn btn-xl btn-outline-light">검색</button>	
+					</div>
+						
+				</form>
+                <!-- Icon Divider-->
+                
+                <!-- Masthead Subheading-->
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+        
+        <!-- Contact Section-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <img class="logo" src="${pageContext.request.contextPath}/img/sillalogo.png"></img>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
+                        <form id="contactForm" name="sentMessage" novalidate="novalidate" action='${pageContext.request.contextPath}/lecture-evaluation?action=login' method="POST">
+                            <div class="control-group">
+                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                    <label>ID</label>
+                                    <input class="form-control" id="name" name="id" type="text" placeholder="ID" required="required" data-validation-required-message="Please enter your id." />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                    <label>PASSWORD</label>
+                                    <input class="form-control" id="message" name="pwd" type="password" placeholder="PASSWORD" required="required" data-validation-required-message="Please enter your password." />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                           
+                            <br />
+                            <div id="success"></div>
+                            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">로그인</button>
+                             <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form'>회원가입</a>
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <c:if test="${message==false}" >
+			<script>
+				alert("아이디나 비밀번호를 다시 입력해주세요.");
+			</script>
+		</c:if> 
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright © 201795025 김유진, 201795081정주경</small></div>
+        </div>
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+       
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <script src="assets/mail/jqBootstrapValidation.js"></script>
+        <script src="assets/mail/contact_me.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

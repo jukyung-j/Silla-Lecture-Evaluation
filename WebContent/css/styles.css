@@ -393,13 +393,6 @@ h6, .h6 {
 		text-align : center;
 		margin-top : 3%;
 	}
-.searchbox{
-	border:1px solid  white;
-	border-radius:5px;
-	width:150px; 
-	height:30%;
-	font-size:20px;
-}
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
@@ -488,7 +481,12 @@ mark,
   max-width: 100%;
   height: auto;
 }
-
+.logo{
+		width:10rem;
+		height:10rem;
+		display:block;
+		margin:0px auto;
+}
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -10034,8 +10032,9 @@ h3 {
 }
 
 .btn-xl {
-  padding: 1rem 1.75rem;
-  font-size: 1.25rem;
+  padding: 0.7rem 0.7rem;
+  margin-left:15px;
+  font-size: 1rem;
 }
 
 .btn-social {
@@ -10121,15 +10120,19 @@ h3 {
   }
 }
 .masthead {
-  padding-top: calc(6rem + 74px);
+  padding-top: calc(1rem + 74px);
   padding-bottom: 1rem;
 }
 .masthead .masthead-heading {
-  font-size: 2.75rem;
-  line-height: 2.75rem;
+  font-size: 1.75rem;
+  line-height: 1.75rem;
 }
 .masthead .masthead-subheading {
   font-size: 1.25rem;
+  border:1px solid  white;
+  border-radius:5px;
+  width:13rem; 
+  height:30%;
 }
 .masthead .masthead-avatar {
   width: 15rem;
@@ -10137,8 +10140,8 @@ h3 {
 
 @media (min-width: 992px) {
   .masthead {
-    padding-top: calc(6rem + 104px);
-    padding-bottom: 3rem;
+    padding-top: calc(1rem + 104px);
+    padding-bottom: 1rem;
   }
   .masthead .masthead-heading {
     font-size: 4rem;
@@ -10146,6 +10149,11 @@ h3 {
   }
   .masthead .masthead-subheading {
     font-size: 1.5rem;
+    border:1px solid  white;
+	border-radius:5px;
+	width:30rem; 
+	height:30%;
+    
   }
 }
 .portfolio .portfolio-item {
