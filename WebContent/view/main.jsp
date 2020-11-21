@@ -114,6 +114,7 @@
 			등록된 최신글이 없습니다.
 	</c:if>
 	<c:if test="${deptlist!=null}">
+		${user_dept}최신 강의평
 		<c:forEach var="dept_list" items="${deptlist}" >
 					<table class="text">
 						<tr>
