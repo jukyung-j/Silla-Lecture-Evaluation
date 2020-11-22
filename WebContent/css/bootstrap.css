@@ -134,9 +134,13 @@ dd {
 blockquote {
   margin: 0 0 1rem;
 }
+<<<<<<< HEAD
 .out{
 	margin-left:110rem;	
 }
+=======
+
+>>>>>>> e8a50ea5c3a8313d7260f73e3cbe6c81401ad28c
 b,
 strong {
   font-weight: bolder;
@@ -4733,11 +4737,16 @@ input[type="button"].btn-block {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
+<<<<<<< HEAD
+=======
+  min-width: 0;
+>>>>>>> e8a50ea5c3a8313d7260f73e3cbe6c81401ad28c
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.4rem;
+<<<<<<< HEAD
   margin:0 auto;
   height:30rem;
   width:60rem;
@@ -4759,6 +4768,8 @@ input[type="button"].btn-block {
 }
 .name{
 	margin-top:1rem;
+=======
+>>>>>>> e8a50ea5c3a8313d7260f73e3cbe6c81401ad28c
 }
 
 .card > hr {
