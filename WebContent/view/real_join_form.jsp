@@ -212,11 +212,8 @@
    	<th>아이디</th>
    	<td>
    		<input type="text" id="user_id" class="textbox" name="id" required><br>
-<<<<<<< HEAD:WebContent/view/real_join_form.jsp
    		<span class="check_font" id="id_check"></span>
-=======
    			<span class="textbox" id="id_check"></span>
->>>>>>> 2218dabf27af40fe402d1237e1e49aeaf156e617:WebContent/view/join_form.jsp
    	</td>
    	</tr>
    	

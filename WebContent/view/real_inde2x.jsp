@@ -49,6 +49,8 @@
             <div class="container">
                 <!-- Contact Section Heading-->
                 <img class="logo" src="${pageContext.request.contextPath}/img/sillalogo.png"></img>
+                <!-- Contact Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">로그인</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -76,10 +78,10 @@
                             </div>
                            
                             <br />
-                            <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">로그인</button>
-                             <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form'>회원가입</a>
-                             </div>
+                            <div class="loginbtn">
+                            <button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">LOGIN</button></div>
+                             <a href='${pageContext.request.contextPath}/lecture-evaluation/join_form' class="a_join">회원가입</a>
+                             
                         </form>
                     </div>
                 </div>
