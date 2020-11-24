@@ -92,6 +92,7 @@ public class MainControl extends HttpServlet {
 			}
 			else if(pathInfo.equals("/search")) {		// 강의명이나 교수명 검색
 				String search_id = request.getParameter("search_id");
+				System.out.println(search_id);
 				List<LectureDO> lecture_List = new ArrayList<LectureDO>();
 				try {
 					lecture_List = dao.Search(search_id);
@@ -99,6 +100,8 @@ public class MainControl extends HttpServlet {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
+					
 				}
 				viewName="/view/search.jsp";
 			}
@@ -118,7 +121,7 @@ public class MainControl extends HttpServlet {
 					e.printStackTrace();
 				}
 				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
-				viewName="redirect:/lecture-evaluation/main/search&search_id="+lec_name;
+				viewName="redirect:/lecture-evaluation/main/search?search_id="+lec_name;
 			}
 			else if(action.equals("add_eval")) {
 				String lec_name = request.getParameter("lec_name");
@@ -131,9 +134,21 @@ public class MainControl extends HttpServlet {
 			else if(action.equals("insert_eval")) {		// 강의 평가 저장
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
+				int star = Integer.parseInt(request.getParameter("star"));
+				int attendance = Integer.parseInt(request.getParameter("attendance"));
+				int assign = Integer.parseInt(request.getParameter("assign"));
+				int grade = Integer.parseInt(request.getParameter("grade"));
+				int difficulty = Integer.parseInt(request.getParameter("difficulty"));
+				int learning = Integer.parseInt(request.getParameter("learning"));
+				
 				lecture.setLec_name(lec_name);
 				lecture.setP_name(p_name);
-				lecture.setStar(Integer.parseInt(request.getParameter("star")));
+				lecture.setStar(star);
+				lecture.setAttendance(attendance);
+				lecture.setAssign(assign);
+				lecture.setGrade(grade);
+				lecture.setDifficulty(difficulty);
+				lecture.setLearning(learning);
 				lecture.setContent(request.getParameter("content"));
 				try {
 					dao.insert_eval(lecture);

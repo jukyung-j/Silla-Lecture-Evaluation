@@ -42,49 +42,39 @@
 	<section class="page-section" id="contact" style="margin-top:4rem">
 		<div class="container">
 			<h2
-				class="page-section-heading text-center text-uppercase text-secondary mb-0">강의평가 등록</h2>
+				class="page-section-heading text-center text-uppercase text-secondary mb-0">강의 등록</h2>
 			<div class="row">
 				<div class="col-lg-8 mx-auto">
 					<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
 					<form id="contactForm" name="sentMessage" novalidate="novalidate"
-						action='${pageContext.request.contextPath}/lecture-evaluation/main?action=insert_eval'
+						action='${pageContext.request.contextPath}/lecture-evaluation/main?action=register'
 						method="POST">
-						별 점
-					<span class="star-input"
-						style="width: 200px; height: 100px; border: 1px solid red;">
-							<span class="input"> <input type="radio"
-								name="star-input" value="1" id="p1"> <label for="p1">1</label>
-								<input type="radio" name="star-input" value="2" id="p2">
-								<label for="p2">2</label> <input type="radio" name="star-input"
-								value="3" id="p3"> <label for="p3">3</label> <input
-								type="radio" name="star-input" value="4" id="p4"> <label
-								for="p4">4</label> <input type="radio" name="star-input"
-								value="5" id="p5"> <label for="p5">5</label>
-						</span> <output for="star-input">
-								<b>0</b>점
-							</output>
-					</span>
 						<div class="control-group">
 							<div
 								class="form-group floating-label-form-group controls mb-0 pb-2">
 								<label>강의명</label> <input class="form-control" 
-									name="lec_name" type="text" value="${lec_name}" readonly/>
+									name="lec_name" type="text" placeholder="강의명" required="required" />
 							</div>
 						</div>
 						<div class="control-group">
 							<div
 								class="form-group floating-label-form-group controls mb-0 pb-2">
 								<label>교수명</label> <input class="form-control" 
-									name="p_name" type="text" value="${p_name}" readonly/>
+									name="p_name" type="text" placeholder="교수 명"
+									required="required"/>
 							</div>
 						</div>
 						<div class="control-group">
-                                
+                                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                    <label>강의 해당 학과</label>
+                                    <input class="form_control" placeholder="강의 해당 학과" readonly>
+                                    &nbsp;&nbsp;<c:import url="http://localhost:8080/sillauv/view/dept.jsp"/>
+                                </div>
                             </div>
 						<br><br>
 						<div class="loginbtn">
 							<button class="btn btn-primary btn-xl" id="sendMessageButton"
-								type="submit">강의평 등록</button>
+								type="submit">강의 등록</button>
 						</div>
 					
 
@@ -99,7 +89,6 @@
 			<small>Copyright © 201795025 김유진, 201795081정주경</small>
 		</div>
 	</div>
-	<script src="../js/star.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script

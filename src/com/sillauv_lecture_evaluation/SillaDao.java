@@ -140,7 +140,7 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.content, e.todate "
+				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.attendance, e.assign, e.grade, e.learning,e.difficulty, e.content, e.todate "
 						+ "from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, dept);
@@ -153,6 +153,11 @@ public abstract class SillaDao {
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
+						lecture.setStar(rs.getInt("attendance"));
+						lecture.setStar(rs.getInt("assign"));
+						lecture.setStar(rs.getInt("grade"));
+						lecture.setStar(rs.getInt("learning"));
+						lecture.setStar(rs.getInt("difficulty"));
 						lecture.setDept(rs.getString("dept"));
 						lecture.setContent(rs.getString("content"));
 						lecture.setTodate(rs.getString("todate"));
@@ -211,6 +216,11 @@ public abstract class SillaDao {
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
+						lecture.setStar(rs.getInt("attendance"));
+						lecture.setStar(rs.getInt("assign"));
+						lecture.setStar(rs.getInt("grade"));
+						lecture.setStar(rs.getInt("learning"));
+						lecture.setStar(rs.getInt("difficulty"));
 						lecture.setContent(rs.getString("content"));
 						lecture.setTodate(rs.getString("todate"));
 						lectureList.add(lecture);
@@ -268,14 +278,20 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				rs.next();
 				dept = rs.getString("dept");
-				String sql= "insert into eval(lec_name, p_name, dept, star, content, todate,idx) values (?,?,?,?,?,?,(SELECT NVL(MAX(idx)+1,1) FROM eval))";
+				String sql= "insert into eval(lec_name, p_name, dept, star,attendance,assign,grade,learning,difficulty, content, todate,idx) "
+						+ "values (?,?,?,?,?,?,?,?,?,?,?,(SELECT NVL(MAX(idx)+1,1) FROM eval))";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, lecture.getLec_name());
 				stmt.setString(2, lecture.getP_name());
 				stmt.setString(3, dept);
 				stmt.setInt(4, lecture.getStar());
-				stmt.setString(5, lecture.getContent());
-				stmt.setTimestamp(6, time);
+				stmt.setInt(5, lecture.getAttendance());
+				stmt.setInt(6, lecture.getAssign());
+				stmt.setInt(7, lecture.getGrade());
+				stmt.setInt(8, lecture.getLearning());
+				stmt.setInt(9, lecture.getDifficulty());
+				stmt.setString(10, lecture.getContent());
+				stmt.setTimestamp(11, time);
 				result = stmt.executeUpdate();	
 			} catch(SQLException e) {
 				throw e;

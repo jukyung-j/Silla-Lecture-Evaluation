@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<select name="dept" required>
+<select name="dept" class="custom-select" required>
 	<option value="" >학과를 선택해 주세요</option>
     <c:forEach var="item" items="${optionMap}">
         <option value="${item.key}">${item.value}</option>
