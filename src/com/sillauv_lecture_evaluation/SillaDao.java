@@ -153,11 +153,11 @@ public abstract class SillaDao {
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
-						lecture.setStar(rs.getInt("attendance"));
-						lecture.setStar(rs.getInt("assign"));
-						lecture.setStar(rs.getInt("grade"));
-						lecture.setStar(rs.getInt("learning"));
-						lecture.setStar(rs.getInt("difficulty"));
+						lecture.setAttendance(rs.getInt("attendance"));
+						lecture.setAssign(rs.getInt("assign"));
+						lecture.setGrade(rs.getInt("grade"));
+						lecture.setLearning(rs.getInt("learning"));
+						lecture.setDifficulty(rs.getInt("difficulty"));
 						lecture.setDept(rs.getString("dept"));
 						lecture.setContent(rs.getString("content"));
 						lecture.setTodate(rs.getString("todate"));
@@ -216,11 +216,11 @@ public abstract class SillaDao {
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
-						lecture.setStar(rs.getInt("attendance"));
-						lecture.setStar(rs.getInt("assign"));
-						lecture.setStar(rs.getInt("grade"));
-						lecture.setStar(rs.getInt("learning"));
-						lecture.setStar(rs.getInt("difficulty"));
+						lecture.setAttendance(rs.getInt("attendance"));
+						lecture.setAssign(rs.getInt("assign"));
+						lecture.setGrade(rs.getInt("grade"));
+						lecture.setLearning(rs.getInt("learning"));
+						lecture.setDifficulty(rs.getInt("difficulty"));
 						lecture.setContent(rs.getString("content"));
 						lecture.setTodate(rs.getString("todate"));
 						lectureList.add(lecture);
@@ -320,6 +320,11 @@ public abstract class SillaDao {
 						lecture.setLec_name(rs.getString("lec_name"));
 						lecture.setP_name(rs.getString("p_name"));
 						lecture.setStar(rs.getInt("star"));
+						lecture.setAttendance(rs.getInt("attendance"));
+						lecture.setAssign(rs.getInt("assign"));
+						lecture.setGrade(rs.getInt("grade"));
+						lecture.setLearning(rs.getInt("learning"));
+						lecture.setDifficulty(rs.getInt("difficulty"));
 						lecture.setDept(rs.getString("dept"));
 						lecture.setContent(rs.getString("content"));
 						lecture.setTodate(rs.getString("todate"));
@@ -354,6 +359,11 @@ public abstract class SillaDao {
 					lecture.setLec_name(rs.getString("lec_name"));
 					lecture.setP_name(rs.getString("p_name"));
 					lecture.setStar(rs.getInt("star"));
+					lecture.setAttendance(rs.getInt("attendance"));
+					lecture.setAssign(rs.getInt("assign"));
+					lecture.setGrade(rs.getInt("grade"));
+					lecture.setLearning(rs.getInt("learning"));
+					lecture.setDifficulty(rs.getInt("difficulty"));
 					lecture.setContent(rs.getString("content"));
 				}
 			}catch(SQLException e) {
@@ -370,13 +380,18 @@ public abstract class SillaDao {
 			int result = 0;
 			PreparedStatement stmt = null;
 			try {
-				String sql="update eval set lec_name=?, p_name=?, star=?, content=? where idx=?";
+				String sql="update eval set lec_name=?, p_name=?, star=?,attendance=?,assign=?,grade=?,learning=?,difficulty=?, content=? where idx=?";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, lecture.getLec_name());
 				stmt.setString(2, lecture.getP_name());
 				stmt.setInt(3, lecture.getStar());
-				stmt.setString(4, lecture.getContent());
-				stmt.setInt(5, lecture.getIdx());
+				stmt.setInt(4, lecture.getAttendance());
+				stmt.setInt(5, lecture.getAssign());
+				stmt.setInt(6, lecture.getGrade());
+				stmt.setInt(7, lecture.getLearning());
+				stmt.setInt(8, lecture.getDifficulty());
+				stmt.setString(9, lecture.getContent());
+				stmt.setInt(10, lecture.getIdx());
 				result = stmt.executeUpdate();	
 			} catch(SQLException e) {
 				throw e;

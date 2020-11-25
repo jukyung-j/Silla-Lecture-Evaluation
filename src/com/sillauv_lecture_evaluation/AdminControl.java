@@ -99,6 +99,11 @@ public class AdminControl extends HttpServlet {
 				lecture.setLec_name(request.getParameter("lec_name"));
 				lecture.setP_name(request.getParameter("p_name"));
 				lecture.setStar(Integer.parseInt(request.getParameter("star")));
+				lecture.setAttendance(Integer.parseInt(request.getParameter("attendance")));
+				lecture.setAssign(Integer.parseInt(request.getParameter("assign")));
+				lecture.setGrade(Integer.parseInt(request.getParameter("grade")));
+				lecture.setLearning(Integer.parseInt(request.getParameter("learning")));
+				lecture.setDifficulty(Integer.parseInt(request.getParameter("difficulty")));
 				lecture.setContent(request.getParameter("content"));
 				
 				try {
