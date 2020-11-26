@@ -14,12 +14,14 @@ public class LectureDO {
 	private String dept;
 	private String todate;
 	private String content;
+	private String writer;
+	
 	
 	public LectureDO() {
 		
 	}
 	public LectureDO(int idx, String lec_name, String p_name, int star, int attendance, int assign, int grade,
-			int learning, int difficulty, String dept, String todate, String content) {
+			int learning, int difficulty, String dept, String todate, String content,String writer) {
 		super();
 		this.idx = idx;
 		this.lec_name = lec_name;
@@ -33,6 +35,7 @@ public class LectureDO {
 		this.dept = dept;
 		this.todate = todate;
 		this.content = content;
+		this.writer = writer;
 	}
 	public int getIdx() {
 		return idx;
@@ -118,6 +121,11 @@ public class LectureDO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
 	
 }

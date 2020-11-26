@@ -137,7 +137,11 @@ blockquote {
 	margin: 0 0 1rem;
 }
 
-b, strong {
+.out {
+	margin-left: 110rem;
+}
+
+strong {
 	font-weight: bolder;
 }
 
@@ -1649,12 +1653,6 @@ pre code {
 	.offset-xl-11 {
 		margin-left: 91.666667%;
 	}
-}
-
-.table {
-	width: 100%;
-	margin-bottom: 1rem;
-	color: #888;
 }
 
 .table th, .table td {
@@ -3335,6 +3333,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	left: auto;
 	margin-top: 0;
 	margin-right: 0.125rem;
+	text-align: center;
 }
 
 .dropleft .dropdown-toggle::after {
@@ -3435,6 +3434,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	display: -ms-inline-flexbox;
 	display: inline-flex;
 	vertical-align: middle;
+	margin-left: 60rem;
 }
 
 .btn-group>.btn, .btn-group-vertical>.btn {
@@ -3540,7 +3540,8 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 
 .btn-group-toggle>.btn, .btn-group-toggle>.btn-group>.btn {
-	margin-bottom: 0;
+	margin-left: 40rem;
+	margin-top: -3rem;
 }
 
 .btn-group-toggle>.btn input[type="radio"], .btn-group-toggle>.btn input[type="checkbox"],
@@ -4746,6 +4747,29 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	background-clip: border-box;
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 0.4rem;
+	margin: 0 auto;
+	height: 30rem;
+	width: 50rem;
+}
+
+.radar {
+	position: relative;
+	margin-left: 35rem;
+	margin-top: -9rem;
+}
+
+.outbox {
+	background-color: #1abc9c;
+	border-color: #1abc9c;
+	border-radius: 1rem;
+	margin-left: 1rem;
+	margin-top: 1rem;
+	width: 6rem;
+	height: 2rem;
+}
+
+.name {
+	margin-top: 1rem;
 }
 
 .card>hr {

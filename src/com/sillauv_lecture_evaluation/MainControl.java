@@ -92,7 +92,6 @@ public class MainControl extends HttpServlet {
 			}
 			else if(pathInfo.equals("/search")) {		// 강의명이나 교수명 검색
 				String search_id = request.getParameter("search_id");
-				System.out.println(search_id);
 				List<LectureDO> lecture_List = new ArrayList<LectureDO>();
 				try {
 					lecture_List = dao.Search(search_id);
@@ -134,6 +133,7 @@ public class MainControl extends HttpServlet {
 			else if(action.equals("insert_eval")) {		// 강의 평가 저장
 				String lec_name = request.getParameter("lec_name");
 				String p_name = request.getParameter("p_name");
+				String writer = (String) session.getAttribute("nick");
 				int star = Integer.parseInt(request.getParameter("star"));
 				int attendance = Integer.parseInt(request.getParameter("attendance"));
 				int assign = Integer.parseInt(request.getParameter("assign"));
@@ -150,6 +150,7 @@ public class MainControl extends HttpServlet {
 				lecture.setDifficulty(difficulty);
 				lecture.setLearning(learning);
 				lecture.setContent(request.getParameter("content"));
+				lecture.setWriter(writer);
 				try {
 					dao.insert_eval(lecture);
 				} catch (SQLException e) {

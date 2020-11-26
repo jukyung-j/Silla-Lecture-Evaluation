@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<canvas id="myChart"></canvas>
+	<canvas id="myChart" width=250></canvas>
 	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script type="text/javascript">
-		var context = document.getElementById('myChart').getContext('2d');
+		var context = document.getElementsById('myChart').getContext('2d');
 		var myChart = new Chart(context, {
 			type: 'radar',
 			data: {

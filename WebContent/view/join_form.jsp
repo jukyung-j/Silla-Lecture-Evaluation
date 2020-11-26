@@ -65,8 +65,8 @@
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                                     <label>ID</label>
                                     <input class="form-control" id="user_id" name="user_id" type="text" placeholder="ID" required />
-                                    <span id="id_check"></span>
                                     <p class="help-block text-danger"></p>
+                                    <span id="id_check"></span>
                                 </div>
                             </div>
                             <div class="control-group">

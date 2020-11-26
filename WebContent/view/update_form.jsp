@@ -47,11 +47,14 @@
 				<div class="col-lg-8 mx-auto">
 					<!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
 					<form id="contactForm" name="sentMessage" novalidate="novalidate"
-						action='${pageContext.request.contextPath}/lecture-evaluation/main?action=insert_eval'
-						method="POST">
+						action='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update' method="POST">
 						<div class="control-group">
-							<div
-								class="form-group floating-label-form-group controls mb-0 pb-2">
+							<div class="form-group floating-label-form-group controls mb-0 pb-2">
+								<label>INDEX</label> <input class="form-control" name="idx" type="text" value="${lecture.idx}" readonly/>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="form-group floating-label-form-group controls mb-0 pb-2">
 								<label>강의명</label> <input class="form-control" name="lec_name" type="text" value="${lecture.lec_name}" readonly/>
 							</div>
 						</div>
