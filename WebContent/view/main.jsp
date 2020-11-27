@@ -47,7 +47,7 @@
 	</c:if>
 	<c:if test="${deptlist!=null}"> 
 	<c:forEach var="dept" items="${deptlist}" >
-	<div class="card text-white bg-primary mb-3">
+	<div class="card text-white bg-primary mb-3" style="height:auto">
   		<div class="card-header"><h2>${dept.lec_name} 
   		<span style="color:Gold" class="star">
   		<c:choose>
@@ -59,11 +59,12 @@
   		</c:choose>
   		</span></h2> 
   		${dept.p_name} 교수님</div>
-  		<div class="card-body" style="background-color:white; color:black; height:30rem;">
+  		<div class="card-body" style="background-color:white; color:black; height:30rem; padding-bottom:1rem; height:auto">
   		<div class="nn">	
     		<h4 class="card-title">${dept.writer} 님의 의견</h4>
     		${dept.todate}
-    		<p class="card-text">${dept.content}</p>
+    		<p class="card-text">${dept.content}<br>
+    		</p>
     	</div>
     	<div class="radar">
 		<canvas id="${dept.idx}" width=250></canvas>

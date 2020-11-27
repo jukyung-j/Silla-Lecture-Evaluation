@@ -77,19 +77,19 @@
 	<c:forEach var="eval" items="${eval_list}">
 	<c:if test="${nick=='관리자'}">
 		<div class="aa">
-		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" style="margin-left:0rem">
 	  		<label class="btn btn-primary active">
 	   			 <input type="radio" name="options" id="option1" autocomplete="off" 
 	   			 onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update_form&idx=${eval.idx}'"> 수정
 	  		</label>
-	  		<label class="btn btn-primary">
+	  		<label class="btn btn-primary" style="margin-left:-1rem">
 	   			 <input type="radio" name="options" id="option3" autocomplete="off" 
 	   			 onclick='confirmAndDelete("${eval.idx}","${eval.lec_name}");'> 삭제
 	  		</label>
 		</div>
 		</div>
 	</c:if>
-		 <div class="card text-white bg-primary mb-3">
+		 <div class="card text-white bg-primary mb-3" style="height:auto">
 	  		<div class="card-header"><h2>${eval.lec_name} 
 	  		<span style="color:Gold" class="star">
 	  		 <c:choose>
@@ -101,7 +101,7 @@
 		  	 </c:choose>
 	  		</span></h2> 
 	  		${eval.p_name} 교수님</div>
-	  		<div class="card-body" style="background-color:white; color:black; height:30rem;">
+	  		<div class="card-body" style="background-color:white; color:black; height:30rem; padding-bottom:1rem; height:auto">
 	  		<div class="nn">	
 	    		<h4 class="card-title">${eval.writer} 님의 의견</h4>
 	    		${eval.todate}
@@ -109,33 +109,33 @@
 	    	</div>
 	    	<div class="radar">
 	    	<canvas id="${eval.idx}" width=250></canvas>
-		<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-		<script type="text/javascript">
-		var context = document.getElementById(${eval.idx}).getContext('2d');
-		var myChart = new Chart(context, {
-			type: 'radar',
-			data: {
-				labels: ['출석체크','과제','학점','학습량','난이도'],
-				datasets: [{
-					label:'평가',
-					backgroundColor : ['rgba(75,192,192,0.2)'],
-					data: [${eval.attendance},${eval.assign},${eval.grade},${eval.learning},${eval.difficulty}]
-				}]
-			},
-			options : {
-				responsive : false,
-				scale:{
-					ticks: {
-						beginAtZero: true,
-					      min: 0,
-					      max: 5,
-					      stepSize: 1
+				<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+				<script type="text/javascript">
+				var context = document.getElementById(${eval.idx}).getContext('2d');
+				var myChart = new Chart(context, {
+					type: 'radar',
+					data: {
+						labels: ['출석체크','과제','학점','학습량','난이도'],
+						datasets: [{
+							label:'평가',
+							backgroundColor : ['rgba(75,192,192,0.2)'],
+							data: [${eval.attendance},${eval.assign},${eval.grade},${eval.learning},${eval.difficulty}]
+						}]
+					},
+					options : {
+						responsive : false,
+						scale:{
+							ticks: {
+								beginAtZero: true,
+							      min: 0,
+							      max: 5,
+							      stepSize: 1
+							}
+						}	
 					}
-				}	
-			}
-			
-		});
-		</script>
+					
+				});
+				</script>
 	    	</div>
 	 	 </div>
 	  </div>

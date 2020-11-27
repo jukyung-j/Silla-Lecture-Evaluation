@@ -102,12 +102,9 @@
 
 						<br />
 						<div class="loginbtn">
-							<button class="btn btn-primary btn-xl" id="sendMessageButton"
-								type="submit">LOGIN</button>
+							<button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">LOGIN</button>
 						</div>
-						<a
-							href='${pageContext.request.contextPath}/lecture-evaluation/join_form'
-							class="a_join">회원가입</a>
+						<a href='${pageContext.request.contextPath}/lecture-evaluation/join_form' class="a_join">회원가입</a>
 
 					</form>
 				</div>

@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                             <input type="button" value="이메일 인증"  id="check_mail" class="btn btn-primary btn-xl"/><br>
-   						    <input type="text"  class="form-control mr-sm-2"  placeholder="인증번호 입력" style="width:50%; margin-left:2rem" >
+   						    <input type="text"  class="form-control mr-sm-2"  placeholder="인증번호 입력" id="e_code" style="width:50%; margin-left:2rem" >
    						    <button type="button"  id="code_btn" class="btn btn-outline-primary">확인</button>
    							<span class="textbox" id="code_check"></span><br>
                             <br />

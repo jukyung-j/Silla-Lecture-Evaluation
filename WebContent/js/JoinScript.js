@@ -48,6 +48,7 @@ window.onload = function(){
 				$("#code_btn").attr("disabled",false);
 				$("#code_btn").click(function(){
 					var ecode = $("#e_code").val();
+					console.log(ecode);
 					if(data==ecode){	// 인증번호 맞게 입력
 						$("#code_check").text("인증에 성공하셨습니다.");
 						$("#code_check").css('color','blue');

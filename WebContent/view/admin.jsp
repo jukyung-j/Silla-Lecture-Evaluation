@@ -44,19 +44,19 @@
 	</c:if> 
 	<c:if test="${admin_eval!=null}"> 
 	<c:forEach var="admin" items="${admin_eval}" > 
-	<div class="aa">
-	<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  		<label class="btn btn-primary active">
+	<div class="aa" >
+	<div class="btn-group btn-group-toggle" data-toggle="buttons" style="margin-left:0rem">
+  		<label class="btn btn-primary active" >
    			 <input type="radio" name="options" id="option1" autocomplete="off" 
    			 onclick="location.href='${pageContext.request.contextPath}/lecture-evaluation/admin?action=update_form&idx=${admin.idx}'"> 수정
   		</label>
-  		<label class="btn btn-primary">
+  		<label class="btn btn-primary" style="margin-left:-1rem">
    			 <input type="radio" name="options" id="option3" autocomplete="off" 
-   			 onclick='confirmAndDelete("${admin.idx}","${admin.lec_name}");'> 삭제
+   			  onclick='confirmAndDelete("${admin.idx}","${admin.lec_name}");'> 삭제
   		</label>
 	</div>
 	</div>
-	<div class="card text-white bg-primary mb-3">
+	<div class="card text-white bg-primary mb-3" style="height:auto">
   		<div class="card-header"><h2>${admin.lec_name} 
   		<span style="color:Gold" class="star">
   		 <c:choose>
@@ -68,7 +68,7 @@
 		  	 </c:choose>
   		</span></h2> 
   		${admin.p_name} 교수님</div>
-  		<div class="card-body" style="background-color:white; color:black; height:30rem;">
+  		<div class="card-body" style="background-color:white; color:black; height:30rem;padding-bottom:1rem;height:auto">
   		<div class="nn">	
     		<h4 class="card-title">${admin.writer} 님의 의견</h4>
     		${admin.todate}
