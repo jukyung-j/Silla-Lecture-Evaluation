@@ -2,8 +2,8 @@
 <Context>
 
 	 <ResourceLink 
-		global = "jdbc/g_oracle_xepdb1"
-		name = "jdbc/oracle_xepdb1"
+		global = "jdbc/g_mysql"
+		name = "jdbc/mysql"
 		type = "javax.sql.DataSource"
 		/> 
 	

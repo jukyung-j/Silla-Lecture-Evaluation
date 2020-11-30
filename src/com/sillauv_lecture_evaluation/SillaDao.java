@@ -140,8 +140,12 @@ public abstract class SillaDao {
 			ResultSet rs = null;
 			
 			try {
-				String sql = "select rownum, e.lec_name, e.p_name, e.dept, e.star, e.attendance, e.assign, e.grade, e.learning,e.difficulty, e.content,e.writer, e.todate,e.idx "
-						+ "from (SELECT * FROM eval ORDER BY todate DESC)e where dept = ? AND rownum<=3";
+				String sql="SET @ROWNUM:=0";
+				stmt = con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				sql = "select @ROWNUM:=@ROWNUM+1 AS rownum, e.lec_name, e.p_name, e.dept, e.star, e.attendance, e.assign, e.grade, e.learning,e.difficulty, e.content,e.writer, e.todate,e.idx "
+						+ "from (SELECT * FROM eval ORDER BY todate DESC)e "
+						+ "where dept = ? LIMIT 3";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, dept);
 				rs = stmt.executeQuery();
@@ -281,8 +285,8 @@ public abstract class SillaDao {
 				rs = stmt.executeQuery();
 				rs.next();
 				dept = rs.getString("dept");
-				String sql= "insert into eval(lec_name, p_name, dept, star,attendance,assign,grade,learning,difficulty, content,writer, todate,idx) "
-						+ "values (?,?,?,?,?,?,?,?,?,?,?,?,(SELECT NVL(MAX(idx)+1,1) FROM eval))";
+				String sql= "insert into eval(lec_name, p_name, dept, star,attendance,assign,grade,learning,difficulty, content,writer, todate,idx)"
+						+ "values (?,?,?,?,?,?,?,?,?,?,?,?,(SELECT IFNULL(MAX(idx)+1,1) FROM eval a))";
 				stmt = con.prepareStatement(sql);
 				stmt.setString(1, lecture.getLec_name());
 				stmt.setString(2, lecture.getP_name());
@@ -418,8 +422,14 @@ public abstract class SillaDao {
 				stmt.setInt(1, idx);
 				result =stmt.executeUpdate();
 				
+				sql = "SET @ROWNUM:=0";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
 				// idx값 업데이트하기
-				sql="UPDATE eval SET idx=rownum";
+				sql="UPDATE eval AS e,"
+						+ "(SELECT @ROWNUM:=@ROWNUM+1 rownum,idx"
+						+ "FROM (SELECT idx FROM eval ORDER BY todate)"
+						+ "SET idx=rownum";
 				stmt = con.prepareStatement(sql);
 				result = stmt.executeUpdate();
 			} catch(SQLException e) {
@@ -444,8 +454,14 @@ public abstract class SillaDao {
 				stmt.setString(2, p_name);
 				result =stmt.executeUpdate();
 				
+				sql = "SET @ROWNUM:=0";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
 				// idx값 업데이트하기
-				sql="UPDATE eval SET idx=rownum";
+				sql="UPDATE eval AS e,"
+						+ "(SELECT @ROWNUM:=@ROWNUM+1 rownum,idx"
+						+ "FROM (SELECT idx FROM eval ORDER BY todate)"
+						+ "SET idx=rownum";
 				stmt = con.prepareStatement(sql);
 				result = stmt.executeUpdate();
 			} catch(SQLException e) {

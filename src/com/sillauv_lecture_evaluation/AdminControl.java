@@ -45,7 +45,10 @@ public class AdminControl extends HttpServlet {
 		if(dao == null) {
 			ServletContext context = getServletContext();
 			dao = new SillaDBCPDAO(
-					context.getInitParameter("dbcp_resource_name")
+					context.getInitParameter("dbcp_resource_name"), 
+					context.getInitParameter("db_url"),
+					context.getInitParameter("db_userid"),
+					context.getInitParameter("db_passwd")
 			);
 			session.setAttribute("dao", dao);
 		}

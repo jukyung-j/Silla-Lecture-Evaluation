@@ -68,7 +68,7 @@
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                                     <label>강의 해당 학과</label>
                                     <input class="form_control" placeholder="강의 해당 학과" readonly>
-                                    &nbsp;&nbsp;<c:import url="http://localhost:8080/sillauv/view/dept.jsp"/>
+                                    &nbsp;&nbsp;<%pageContext.include("dept.jsp"); %>
                                 </div>
                             </div>
 						<br><br>
