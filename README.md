@@ -264,6 +264,7 @@ mail
 <img src="https://user-images.githubusercontent.com/68947314/100747285-2f7baa00-3425-11eb-9489-909c0853eb05.jpg" width="50%" height="70%"></img>  
 
 강의명이나 교수명을 검색하면 그에 해당하는 결과들이 나온다.  
+
 DAO
 
 	public List<LectureDO> Search(String name) throws SQLException {
@@ -305,6 +306,8 @@ DAO
 강의명과 교수명 강의에 해당하는 학과를 선택하면 등록이 가능하다.
 
 강의를 등록하고나면 등록한 강의로 search페이지로 이동한다.
+
+
 		if(action!=null) {
 			if(action.equals("register")) {	// 강의가 없으면 강의 등록
 				String lec_name = request.getParameter("lec_name");
@@ -397,3 +400,90 @@ DAO
 			return lectureList;
 		}
 	
+7.add_eval.jsp
+
+<img src="https://user-images.githubusercontent.com/68947314/100749097-884c4200-3427-11eb-9147-d7b49984b256.jpg" width="50%" height="70%"></img>
+
+강의평가를 등록하는 페이지다. 총 별점과 출석체크, 난이도 등등을 별점을 이용해 받았다.  
+총 별점은 inquiry 페이지에 오른쪽에 별모양으로 나타나고 출석체크, 난이도 등은 polygon chart를 통해 나타나게 될것이다.  
+강의를 등록하면 현재 시간과 작성자의 닉네임도 같이 저장하게 한다.  
+강의를 등록하면 inquiry 페이지를 작성한 강의로 redirect시킨다.
+
+
+	else if(action.equals("insert_eval")) {		// 강의 평가 저장
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				String writer = (String) session.getAttribute("nick");
+				int star = Integer.parseInt(request.getParameter("star"));
+				int attendance = Integer.parseInt(request.getParameter("attendance"));
+				int assign = Integer.parseInt(request.getParameter("assign"));
+				int grade = Integer.parseInt(request.getParameter("grade"));
+				int difficulty = Integer.parseInt(request.getParameter("difficulty"));
+				int learning = Integer.parseInt(request.getParameter("learning"));
+				
+				lecture.setLec_name(lec_name);
+				lecture.setP_name(p_name);
+				lecture.setStar(star);
+				lecture.setAttendance(attendance);
+				lecture.setAssign(assign);
+				lecture.setGrade(grade);
+				lecture.setDifficulty(difficulty);
+				lecture.setLearning(learning);
+				lecture.setContent(request.getParameter("content"));
+				lecture.setWriter(writer);
+				try {
+					dao.insert_eval(lecture);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
+				p_name = URLEncoder.encode(p_name,"UTF-8");
+				viewName="redirect:/lecture-evaluation/main/inquiry?lec_name="+lec_name+"&p_name="+p_name;
+			}
+			
+DAO  
+강의들의 pk를 주기위해 idx라는 pk를 생성한다. 이 값은 강의가 들어오면 값이 하나씩 늘어나게 만들었다.
+
+
+	public int insert_eval(LectureDO lecture) throws SQLException {
+			connectDB();
+			
+			int result = 0;
+			ResultSet rs = null;
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+			String ss=sdf.format(new java.util.Date());
+			Timestamp time= Timestamp.valueOf(ss);
+			PreparedStatement stmt = null;
+			try {
+				String dept = "SELECT dept FROM lecture WHERE lec_name = ? AND p_name = ?";
+				stmt = con.prepareStatement(dept);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				rs = stmt.executeQuery();
+				rs.next();
+				dept = rs.getString("dept");
+				String sql= "insert into eval(lec_name, p_name, dept, star,attendance,assign,grade,learning,difficulty, content,writer, todate,idx)"
+						+ "values (?,?,?,?,?,?,?,?,?,?,?,?,(SELECT IFNULL(MAX(idx)+1,1) FROM eval a))";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, lecture.getLec_name());
+				stmt.setString(2, lecture.getP_name());
+				stmt.setString(3, dept);
+				stmt.setInt(4, lecture.getStar());
+				stmt.setInt(5, lecture.getAttendance());
+				stmt.setInt(6, lecture.getAssign());
+				stmt.setInt(7, lecture.getGrade());
+				stmt.setInt(8, lecture.getLearning());
+				stmt.setInt(9, lecture.getDifficulty());
+				stmt.setString(10, lecture.getContent());
+				stmt.setString(11, lecture.getWriter());
+				stmt.setTimestamp(12, time);
+				result = stmt.executeUpdate();	
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return result;
+		}
