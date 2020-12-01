@@ -64,3 +64,12 @@ session에 값이 있으면 main페이지로 바로 이동
 						viewName="redirect:/lecture-evaluation/admin";
 					}
 				}
+				
+2. join_form.jsp
+<img src="https://user-images.githubusercontent.com/68947314/100745047-0c9bc680-3422-11eb-9a14-916112d8d588.jpg" width="50%" height="70%"></img>
+
+ajax를 이용해 데이터를 비동기적으로 처리한다.  
+id를 pk로 하고 nickname을 unique key로 두어 중복되지 않게 처리한다.  
+아이디,비밀번호,닉네임,이메일을 정규표현식으로 두어 표현식에 맞지않게 적으면 빨간글씨가 뜨게 만들었다.  
+이메일은 해당학교의 학생들만 이용하기 위해 sillain메일을 이용해 인증번호를 보낸다.
+폼을 다작성하지 않으면 alert창이 뜬다.
