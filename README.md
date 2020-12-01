@@ -12,7 +12,7 @@ WebContent의 view 폴더에는 html과jsp, src에는 Servlet이 들어있다.
 1.index.jsp
 
 
-<img src="https://user-images.githubusercontent.com/68947314/98551653-e7afaa00-22e0-11eb-9d7d-49f2cf2aafe3.jpg" width="50%" height="70%"></img>
+<img src="https://user-images.githubusercontent.com/68947314/100744878-cfcfcf80-3421-11eb-8021-503bb933a70b.jpg" width="50%" height="70%"></img>
 
 로그인 버튼을 누를시 DB에 값이 있고 비밀번호가 일치하면 로그인성공   
 성공시 session에 값을 저장한다.   
