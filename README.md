@@ -531,37 +531,38 @@ CASCADE로 하였기 때문에 fk지만 삭제가 가능하다.
 4. delete  
 강의내용 삭제 또는 강의를 삭제할 경우 idx값을 변경시키기 위해 rownum을 이용해 idx값을 갱신시킨다.
 
-	public int delete(int idx) throws  SQLException {
-			connectDB();
-			int result = 0;
-			LectureDO lecture = new LectureDO();
-			PreparedStatement stmt = null;
-			try {
-				
-				String sql="DELETE FROM eval WHERE idx=?";						
-				stmt = con.prepareStatement(sql);
-				stmt.setInt(1, idx);
-				result =stmt.executeUpdate();
-				
-				sql = "SET @ROWNUM:=0";
-				stmt = con.prepareStatement(sql);
-				result = stmt.executeUpdate();
-				// idx값 업데이트하기
-				sql="UPDATE eval AS e,"
-						+ "(SELECT @ROWNUM:=@ROWNUM+1 rownum,idx"
-						+ "FROM (SELECT idx FROM eval ORDER BY todate)"
-						+ "SET idx=rownum";
-				stmt = con.prepareStatement(sql);
-				result = stmt.executeUpdate();
-			} catch(SQLException e) {
-				throw e;
-			}finally {
-				if(stmt != null) stmt.close();
-				disconnectDB();
+	
+		public int delete(int idx) throws  SQLException {
+				connectDB();
+				int result = 0;
+				LectureDO lecture = new LectureDO();
+				PreparedStatement stmt = null;
+				try {
+
+					String sql="DELETE FROM eval WHERE idx=?";						
+					stmt = con.prepareStatement(sql);
+					stmt.setInt(1, idx);
+					result =stmt.executeUpdate();
+
+					sql = "SET @ROWNUM:=0";
+					stmt = con.prepareStatement(sql);
+					result = stmt.executeUpdate();
+					// idx값 업데이트하기
+					sql="UPDATE eval AS e,"
+							+ "(SELECT @ROWNUM:=@ROWNUM+1 rownum,idx"
+							+ "FROM (SELECT idx FROM eval ORDER BY todate)"
+							+ "SET idx=rownum";
+					stmt = con.prepareStatement(sql);
+					result = stmt.executeUpdate();
+				} catch(SQLException e) {
+					throw e;
+				}finally {
+					if(stmt != null) stmt.close();
+					disconnectDB();
+				}
+
+				return result;
 			}
-			
-			return result;
-		}
 
 
 
