@@ -487,3 +487,45 @@ DAO
 			}
 			return result;
 		}
+		
+##Admin 페이지
+관리자로 로그인하면 강의에 대한 수정 및 삭제가 가능하게 한다.
+
+1.admin.jsp  
+<img src="https://user-images.githubusercontent.com/68947314/100749907-ab2b2600-3428-11eb-9818-d1cab17adcf7.jpg" width="50%" height="70%"></img>  
+admin페이지에는 다른 회원들이 자신의 관련학과 최신글3개글을 보지만 관리자로 로그인 할 시 모든 강의를 볼 수 있게 하였다.  
+모든 강의는 수정 및 삭제가 가능하다.  
+만약 url로 admin을 접속할 경우를 대비해서 nickname이 관리자일경우에만 admin페이지로 이동하게 만들었다. nickname은 unique key이기 때문에 중복을 허용하지 않는다.
+
+
+	if(pathInfo == null) {
+			String nick = (String) session.getAttribute("nick");
+			if(nick.equals("관리자")) {
+				List<LectureDO> admin_eval = null;
+				try {
+					admin_eval = dao.Search_admin();	// 모든 내용들 출력
+					request.setAttribute("admin_eval", admin_eval);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					viewName="/view/admin.jsp";
+			}
+			else 
+				viewName="redirect:/lecture-evaluation/main";
+		}
+
+2. search  
+<img src="https://user-images.githubusercontent.com/68947314/100750300-2d1b4f00-3429-11eb-934b-ad70b680fd61.jpg" width="50%" height="70%"></img>  
+관리자로 접속해서 검색할 경우 강의 자체를 삭제 할 수 있다.
+CASCADE로 하였기 때문에 fk지만 삭제가 가능하다.
+
+3.update_form.jsp  
+<img src="https://user-images.githubusercontent.com/68947314/100750493-753a7180-3429-11eb-8b93-f707b0f9a99a.jpg" width="50%" height="70%"></img>  
+
+강의를 수정할때의 페이지이다.  
+수정페이지에서는 입력된 정보들을 똑같이 띄우게 한다.
+
+
+
+
