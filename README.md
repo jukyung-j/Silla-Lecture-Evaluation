@@ -326,7 +326,7 @@ DAO
 				viewName="redirect:/lecture-evaluation/main/search?search_id="+lec_name;
 			}
 
-6. inquiry.jsp
+6. inquiry.jsp  
 <img src="https://user-images.githubusercontent.com/68947314/100748389-9baadd80-3426-11eb-87b5-8ee94079ab8a.jpg" width="50%" height="70%"></img>  
 
 강의를 선택하고 난뒤의 페이지다. 해당 강의에 대한 정보를 볼 수 있다.  
@@ -487,8 +487,9 @@ DAO
 			}
 			return result;
 		}
-		
-##Admin 페이지
+	
+	
+## Admin페이지
 관리자로 로그인하면 강의에 대한 수정 및 삭제가 가능하게 한다.
 
 1.admin.jsp  
@@ -523,8 +524,48 @@ CASCADE로 하였기 때문에 fk지만 삭제가 가능하다.
 3.update_form.jsp  
 <img src="https://user-images.githubusercontent.com/68947314/100750493-753a7180-3429-11eb-8b93-f707b0f9a99a.jpg" width="50%" height="70%"></img>  
 
-강의를 수정할때의 페이지이다.  
+강의를 수정할때의 페이지이다.idx값을 이용해 강의정보를 가져온다.
 수정페이지에서는 입력된 정보들을 똑같이 띄우게 한다.
+
+4. delete  
+강의내용 삭제 또는 강의를 삭제할 경우 idx값을 변경시키기 위해 rownum을 이용해 idx값을 갱신시킨다.
+
+	public int delete(int idx) throws  SQLException {
+			connectDB();
+			int result = 0;
+			LectureDO lecture = new LectureDO();
+			PreparedStatement stmt = null;
+			try {
+				
+				String sql="DELETE FROM eval WHERE idx=?";						
+				stmt = con.prepareStatement(sql);
+				stmt.setInt(1, idx);
+				result =stmt.executeUpdate();
+				
+				sql = "SET @ROWNUM:=0";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
+				// idx값 업데이트하기
+				sql="UPDATE eval AS e,"
+						+ "(SELECT @ROWNUM:=@ROWNUM+1 rownum,idx"
+						+ "FROM (SELECT idx FROM eval ORDER BY todate)"
+						+ "SET idx=rownum";
+				stmt = con.prepareStatement(sql);
+				result = stmt.executeUpdate();
+			} catch(SQLException e) {
+				throw e;
+			}finally {
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			
+			return result;
+		}
+
+
+
+	
+
 
 
 
