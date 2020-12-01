@@ -124,6 +124,89 @@ id를 pk로 하고 nickname을 unique key로 두어 중복되지 않게 처리�
 					}
 					viewName="redirect:/lecture-evaluation/index";
 				}
+ajax
+
+	function check_ajax(id,user,$check,J,index){		// 아이디와 닉네임 중복 확인을 위한 함수
+		$.ajax({
+			url : '${pageContext.request.contextPath}/lecture-evaluation?action=overlapping_check&'+id+'='+user,
+			type : 'get',
+			success : function(data){
+				console.log("data:"+data);
+				if(data == 1){	// 중복
+					$check.text("사용중입니다.");
+					$check.css("color","red");
+					join[index]=1;
+					
+				} else{
+					if(J.test(user)){	// 길이, 문자열 검사
+						$check.text("사용 가능합니다.");
+						$check.css('color','blue');
+						join[index]=0;
+					} else {
+						$check.text("다시 입력해주세요.");
+						$check.css('color','red');
+						$("#reg_submit").attr("disabled",true);
+						join[index]=1;
+					}
+				}
+			}, error : function(){
+				console.log("중복체크실패");
+			}
+		});
+	}
+
+mail
+
+
+	if(action != null){
+			if(action.equals("send_mail")) {		// 이메일 인증번호 
+				String to_email = request.getParameter("usermail"); //메일 받을 주소
+				 //mail server 설정
+                String host = "smtp.naver.com";
+                String user = "judyj801@naver.com"; //자신의 네이버 계정
+                String password = "wldh9698";//자신의 네이버 패스워드
+                
+                //SMTP 서버 정보를 설정한다.
+                Properties props = new Properties();
+                props.put("mail.smtp.host", host);
+                props.put("mail.smtp.port", 465);
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.ssl.enable", "true");
+                props.put("mail.smtp.starttls.enable","false");
+                //인증 번호 생성기
+                int key = (int)Math.floor((Math.random()*100000+1));
+                
+                System.out.println("key"+key);
+                Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user,password);
+                    }
+                });
+                
+                // email 전송
+                try {
+                    MimeMessage msg = new MimeMessage(session);
+                    msg.setFrom(new InternetAddress(user, "신라대 강의평가"));
+                    msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+                    
+                    //메일 제목
+                    msg.setSubject("안녕하세요. 신라대 강의평가 인증 메일입니다.");
+                    //메일 내용
+                    msg.setText("인증 번호는 :"+key);
+                    
+                    Transport.send(msg);
+                    System.out.println("이메일 전송");
+                    
+                }catch (Exception e) {
+                    e.printStackTrace();// TODO: handle exception
+                    System.out.println("실패");
+                }
+                HttpSession saveKey = request.getSession();
+                //saveKey.setAttribute("key", key);
+            	response.getWriter().print(key);
+			}
+		}
+	}
 3. main.jsp  
 
 로그인 한뒤의 화면이다. 메인페이지에는 자신의 학과의 최신글3개를 볼 수 있다.
