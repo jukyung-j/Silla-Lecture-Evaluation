@@ -208,23 +208,9 @@ mail
 		}
 	}
 3. main.jsp  
-
+<img src="https://user-images.githubusercontent.com/68947314/100747053-e3306a00-3424-11eb-8b31-2251b7c51f5b.jpg" width="50%" height="70%"></img>  
 로그인 한뒤의 화면이다. 메인페이지에는 자신의 학과의 최신글3개를 볼 수 있다.
-
-
-		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
-			List<LectureDO> deptlist = null;
-			String dept = (String) session.getAttribute("user_dept");
-			
-				try {					// 해당학과의 최신글 조회
-						deptlist = dao.Search_dept(dept);
-						request.setAttribute("deptlist", deptlist);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					viewName="/view/main.jsp";
-				}
+	
   DAO
   
   
@@ -274,3 +260,140 @@ mail
 			}
 			return lectureList;
 		}
+4. search.jsp  
+<img src="https://user-images.githubusercontent.com/68947314/100747285-2f7baa00-3425-11eb-9489-909c0853eb05.jpg" width="50%" height="70%"></img>  
+
+강의명이나 교수명을 검색하면 그에 해당하는 결과들이 나온다.  
+DAO
+
+	public List<LectureDO> Search(String name) throws SQLException {
+			List<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT lec_name, p_name from lecture where lec_name LIKE ? or p_name LIKE ?";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, "%"+name+"%");
+				stmt.setString(2, "%"+name+"%");
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+
+5. register.jsp  
+<img src="https://user-images.githubusercontent.com/68947314/100747654-afa20f80-3425-11eb-85af-cb0097123fc5.jpg" width="50%" height="70%"></img>  
+
+자기가 찾고자 하는 강의가 없을 경우 스스로 강의를 등록할 수 있다.  
+강의명과 교수명 강의에 해당하는 학과를 선택하면 등록이 가능하다.
+
+강의를 등록하고나면 등록한 강의로 search페이지로 이동한다.
+		if(action!=null) {
+			if(action.equals("register")) {	// 강의가 없으면 강의 등록
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				lecture.setLec_name(lec_name);
+				lecture.setP_name(p_name);
+				lecture.setDept(request.getParameter("dept"));
+			
+				try {
+					dao.insertdept(lecture);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				lec_name = URLEncoder.encode(lec_name, "UTF-8");	// 한글로 인코딩
+				viewName="redirect:/lecture-evaluation/main/search?search_id="+lec_name;
+			}
+
+6. inquiry.jsp
+<img src="https://user-images.githubusercontent.com/68947314/100748389-9baadd80-3426-11eb-87b5-8ee94079ab8a.jpg" width="50%" height="70%"></img>  
+
+강의를 선택하고 난뒤의 페이지다. 해당 강의에 대한 정보를 볼 수 있다.  
+상단에는 해당 강의의 총별점의 평균을 볼 수 있다.  
+하단에는 강의들의 총 별점, 작성자, 작성시간, 작성내용들이 나오고  
+출석체크, 난이도, 학습량, 과제, 학점의 점수들이 polygon chart radar로 나오게 된다.
+
+
+	else if(pathInfo.equals("/inquiry")) {
+				String lec_name = request.getParameter("lec_name");
+				String p_name = request.getParameter("p_name");
+				double avg_star;
+				List<LectureDO> eval_list = null;
+				try {
+					eval_list=dao.inquiry(lec_name, p_name);
+					avg_star = dao.avg_star(lec_name, p_name);
+					session.setAttribute("eval_list", eval_list);
+					session.setAttribute("avg_star", avg_star);
+					session.setAttribute("lec_name", lec_name);
+					session.setAttribute("p_name", p_name);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				viewName="/view/inquiry.jsp";
+				
+			}
+DAO
+
+
+	public List<LectureDO> inquiry(String lec_name,String p_name) throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * "
+						+ "FROM (SELECT * FROM eval where lec_name = ? AND p_name = ? ORDER BY todate DESC) e";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1,lec_name);
+				stmt.setString(2, p_name);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setAttendance(rs.getInt("attendance"));
+						lecture.setAssign(rs.getInt("assign"));
+						lecture.setGrade(rs.getInt("grade"));
+						lecture.setLearning(rs.getInt("learning"));
+						lecture.setDifficulty(rs.getInt("difficulty"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setWriter(rs.getString("writer"));
+						lecture.setTodate(rs.getString("todate"));
+						lecture.setIdx(rs.getInt("idx"));
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
+	
