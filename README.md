@@ -3,7 +3,7 @@
 
 ## 프로젝트 목적
 
-기존에 강의평가 페이지나 게시물이 없어서 만들기로 하였다.  
+기존에 신라대 강의평가 페이지나 게시물이 없어서 만들기로 하였다.  
 모바일에서도 쉽게 보이도록 반응형 웹으로 제작하였다.  
 Servlet & JSP 를 사용.  
 서버는 tomcat를 이용. AWS를 이용해 업로드
@@ -66,6 +66,7 @@ session에 값이 있으면 main페이지로 바로 이동
 				}
   				
 2. join_form.jsp  
+  
 <img src="https://user-images.githubusercontent.com/68947314/100745047-0c9bc680-3422-11eb-9a14-916112d8d588.jpg" width="50%" height="70%"></img>
 
 ajax를 이용해 데이터를 비동기적으로 처리한다.  
@@ -73,7 +74,8 @@ id를 pk로 하고 nickname을 unique key로 두어 중복되지 않게 처리�
 아이디,비밀번호,닉네임,이메일을 정규표현식으로 두어 표현식에 맞지않게 적으면 빨간글씨가 뜨게 만들었다.  
 이메일은 해당학교의 학생들만 이용하기 위해 sillain메일을 이용해 인증번호를 보낸다.
 폼을 다작성하지 않으면 alert창이 뜬다.  
-  아이디와 닉네임의 중복을 체크하는 코드
+  
+아이디와 닉네임의 중복을 체크하는 코드
   
   
 		else if(action.equals("overlapping_check")) {		// 아이디와 닉네임 중복 확인
@@ -122,3 +124,70 @@ id를 pk로 하고 nickname을 unique key로 두어 중복되지 않게 처리�
 					}
 					viewName="redirect:/lecture-evaluation/index";
 				}
+3. main.jsp  
+
+로그인 한뒤의 화면이다. 메인페이지에는 자신의 학과의 최신글3개를 볼 수 있다.
+
+
+		if(pathInfo == null) {		// main 페이지(로그인된 페이지)
+			List<LectureDO> deptlist = null;
+			String dept = (String) session.getAttribute("user_dept");
+			
+				try {					// 해당학과의 최신글 조회
+						deptlist = dao.Search_dept(dept);
+						request.setAttribute("deptlist", deptlist);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					viewName="/view/main.jsp";
+				}
+  DAO
+  
+  
+  	public List<LectureDO> Search_dept(String dept) throws SQLException {
+			ArrayList<LectureDO> lectureList = null;
+			connectDB();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql="SET @ROWNUM:=0";
+				stmt = con.prepareStatement(sql);
+				rs = stmt.executeQuery();
+				sql = "select @ROWNUM:=@ROWNUM+1 AS rownum, e.lec_name, e.p_name, e.dept, e.star, e.attendance, e.assign, e.grade, e.learning,e.difficulty, e.content,e.writer, e.todate,e.idx "
+						+ "from (SELECT * FROM eval ORDER BY todate DESC)e "
+						+ "where dept = ? LIMIT 3";
+				stmt = con.prepareStatement(sql);
+				stmt.setString(1, dept);
+				rs = stmt.executeQuery();
+				
+				if(rs.isBeforeFirst()) {
+					lectureList = new ArrayList<LectureDO>();
+					while(rs.next()) {
+						LectureDO lecture = new LectureDO();
+						lecture.setLec_name(rs.getString("lec_name"));
+						lecture.setP_name(rs.getString("p_name"));
+						lecture.setStar(rs.getInt("star"));
+						lecture.setAttendance(rs.getInt("attendance"));
+						lecture.setAssign(rs.getInt("assign"));
+						lecture.setGrade(rs.getInt("grade"));
+						lecture.setLearning(rs.getInt("learning"));
+						lecture.setDifficulty(rs.getInt("difficulty"));
+						lecture.setDept(rs.getString("dept"));
+						lecture.setContent(rs.getString("content"));
+						lecture.setWriter(rs.getString("writer"));
+						lecture.setTodate(rs.getString("todate"));
+						lecture.setIdx(rs.getInt("idx"));
+						lectureList.add(lecture);
+					}
+				}
+			}catch(SQLException e) {
+				throw e;
+			}finally {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				disconnectDB();
+			}
+			return lectureList;
+		}
